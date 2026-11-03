@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Archive</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: system-ui, sans-serif;
+    background: linear-gradient(160deg, #3b2f2f, #5c4742);
+    color: #f0e6d2;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  h1 { font-size: 2.2rem; margin-bottom: .3em; }
+  p.sub { opacity: .75; margin-bottom: 2em; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1.2em; max-width: 640px; width: 90%; }
+  a.card {
+    display: block;
+    background: #6b544d;
+    border-radius: 14px;
+    padding: 2em 1em;
+    text-decoration: none;
+    color: #fff;
+    font-size: 1.15rem;
+    transition: transform .15s ease, background .15s ease;
+  }
+  a.card:hover { transform: translateY(-4px); background: #7d645b; }
+  a.card .icon { font-size: 2rem; display: block; margin-bottom: .4em; }
+</style>
+</head>
+<body>
+  <h1>🥔 Potato</h1>
+  <p class="sub">Pick something to play</p>
+  <div class="grid">
+    <a class="card" href="snake.html"><span class="icon">🐍</span>Snake</a>
+    <a class="card" href="pong.html"><span class="icon">🏓</span>Pong</a>
+    <a class="card" href="tictactoe.html"><span class="icon">⭕</span>Tic-Tac-Toe</a>
+    <a class="card" href="tanks/index.html"><span class="icon">🛡️</span>Tank Battle</a>
+  </div>
+</body>
+</html>

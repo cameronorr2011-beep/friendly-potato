@@ -3,45 +3,70 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Potato</title>
+<title>AP Calculus BC — Course Notes</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    font-family: system-ui, sans-serif;
-    background: linear-gradient(160deg, #3b2f2f, #5c4742);
-    color: #f0e6d2;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-  }
-  h1 { font-size: 2.2rem; margin-bottom: .3em; }
-  p.sub { opacity: .75; margin-bottom: 2em; }
-  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1.2em; max-width: 640px; width: 90%; }
-  a.card {
-    display: block;
-    background: #6b544d;
-    border-radius: 14px;
-    padding: 2em 1em;
-    text-decoration: none;
-    color: #fff;
-    font-size: 1.15rem;
-    transition: transform .15s ease, background .15s ease;
-  }
-  a.card:hover { transform: translateY(-4px); background: #7d645b; }
-  a.card .icon { font-size: 2rem; display: block; margin-bottom: .4em; }
+  body { font-family: Georgia, 'Times New Roman', serif; background: #faf8f4; color: #2b2a26; line-height: 1.65; }
+  header { background: #6d1919; color: #f5ecd7; padding: 2.2rem 1.5rem 1.6rem; }
+  .wrap { max-width: 780px; margin: 0 auto; }
+  h1 { font-size: 1.7rem; font-weight: normal; letter-spacing: .01em; }
+  header p { opacity: .85; font-style: italic; margin-top: .3rem; font-size: .95rem; }
+  nav { margin-top: 1rem; font-family: system-ui, sans-serif; font-size: .82rem; letter-spacing: .06em; }
+  nav span { margin-right: 1.4em; }
+  main { padding: 2rem 1.5rem 4rem; }
+  h2 { font-size: 1.15rem; color: #6d1919; margin: 2.2em 0 .6em; border-bottom: 1px solid #d9d2c3; padding-bottom: .3em; }
+  h2:first-child { margin-top: .4em; }
+  .thm { border-left: 3px solid #6d1919; background: #f2ede1; padding: .9em 1.2em; margin: 1.2em 0; }
+  .thm b { display: block; font-variant: small-caps; margin-bottom: .4em; }
+  .eq { text-align: center; font-size: 1.06rem; margin: 1.1em 0; }
+  ol li, ul li { margin-bottom: .45em; }
+  code { font-size: .95em; }
+  footer { text-align: center; font-size: .8rem; color: #97917f; padding-bottom: 3rem; }
 </style>
 </head>
 <body>
-  <h1>🥔 Potato</h1>
-  <p class="sub">Pick something to play</p>
-  <div class="grid">
-    <a class="card" href="snake.html"><span class="icon">🐍</span>Snake</a>
-    <a class="card" href="pong.html"><span class="icon">🏓</span>Pong</a>
-    <a class="card" href="tictactoe.html"><span class="icon">⭕</span>Tic-Tac-Toe</a>
-    <a class="card" href="tanks/index.html"><span class="icon">🛡️</span>Tank Battle</a>
+<header>
+  <div class="wrap">
+    <h1>MATH 41B · AP Calculus BC — Course Notes</h1>
+    <p>Unit review summaries, theorem statements and worked problem sets.</p>
+    <nav><span>UNIT 1 — LIMITS</span><span>UNIT 2 — DIFFERENTIATION</span><span>UNIT 3 — INTEGRATION</span><span>UNIT 4 — SERIES</span></nav>
   </div>
+</header>
+<main class="wrap">
+  <h2>1. Limits and Continuity</h2>
+  <div class="thm"><b>Theorem (ε–δ definition).</b>
+    <code>lim<sub>x→a</sub> f(x) = L</code> ⇔ for every ε &gt; 0 there exists δ &gt; 0 such that
+    0 &lt; |x − a| &lt; δ ⇒ |f(x) − L| &lt; ε.
+  </div>
+  <p>Squeeze theorem for evaluable indeterminate oscillation:</p>
+  <div class="eq">−|x³| ≤ x² sin(1/x) ≤ |x³| &nbsp;⇒&nbsp; lim<sub>x→0</sub> x² sin(1/x) = 0</div>
+
+  <h2>2. Differentiation</h2>
+  <div class="thm"><b>Definition.</b>
+    f′(a) = lim<sub>h→0</sub> [<em>f(a+h) − f(a)</em>]/h, when the limit exists.
+  </div>
+  <p>Key rules in distributed form — product, quotient, chain:</p>
+  <ul>
+    <li>(uv)′ = u′v + uv′</li>
+    <li>(u/v)′ = (u′v − uv′)/v², &nbsp;v ≠ 0</li>
+    <li>d/dx f(g(x)) = f′(g(x))·g′(x)</li>
+  </ul>
+  <div class="eq">d/dx ln u = u′/u ;&nbsp;&nbsp; d/dx a<sup>u</sup> = a<sup>u</sup> ln a · u′</div>
+
+  <h2>3. Integration</h2>
+  <h2>The Fundamental Theorem</h2>
+  <div class="thm"><b>FTC, part II.</b> If f is continuous on [a, b] and F′ = f, then
+    ∫<sub>a</sub><sup>b</sup> f(x) dx = F(b) − F(a).
+  </div>
+  <div class="eq">∫<sub>−∞</sub><sup>∞</sup> e<sup>−x²</sup> dx = √π</div>
+
+  <h2>4. Infinite Series</h2>
+  <div class="thm"><b>Ratio test.</b> For Σa<sub>n</sub> with a<sub>n</sub> ≠ 0,
+    let ρ = lim<sub>n→∞</sub> |a<sub>n+1</sub> / a<sub>n</sub>|. The series converges absolutely if ρ &lt; 1 and diverges if ρ &gt; 1.
+  </div>
+  <div class="eq">e<sup>x</sup> = Σ<sub>n=0</sub><sup>∞</sup> x<sup>n</sup>/n! &nbsp;;&nbsp; arctan x = Σ (−1)<sup>n</sup> x<sup>2n+1</sup>/(2n+1)</div>
+
+  <footer>© 2026 MATH 41B course notes · revised for the spring term</footer>
+</main>
 </body>
 </html>
