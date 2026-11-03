@@ -24,6 +24,9 @@ public GitHub repository, unmodified. License texts are in `_licenses/`.
 | games/minesweeper | https://github.com/Joeynoh/HTML5-Minesweeper | MIT |
 | games/breakout | https://github.com/igameproject/Breakout | MIT |
 | games/doom | https://github.com/carlini/js13k2019-yet-another-doom-clone | GPL-3.0 |
+| games/pacman | https://github.com/mumuy/pacman | MIT (index.html simplified, author-site wrapper/hijack removed) |
+| games/spacehuggers | https://github.com/KilledByAPixel/SpaceHuggers | GPL-3.0 |
+| games/q1k3 | https://github.com/phoboslab/q1k3 | MIT |
 | tanks/ | https://github.com/niccolofanton/tanks-game | MIT |
 
 `shot.png` files in each folder are screenshots of the games, generated for the hub page.

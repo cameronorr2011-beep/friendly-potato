@@ -8,31 +8,71 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { font-family: Georgia, 'Times New Roman', serif; background: #faf8f4; color: #2b2a26; line-height: 1.65; }
   header { background: #6d1919; color: #f5ecd7; padding: 2.2rem 1.5rem 1.6rem; }
-  .wrap { max-width: 780px; margin: 0 auto; }
+  .wrap { max-width: 1000px; margin: 0 auto; }
+  .wrap.narrow { max-width: 780px; }
   h1 { font-size: 1.7rem; font-weight: normal; letter-spacing: .01em; }
   header p { opacity: .85; font-style: italic; margin-top: .3rem; font-size: .95rem; }
-  nav { margin-top: 1rem; font-family: system-ui, sans-serif; font-size: .82rem; letter-spacing: .06em; }
-  nav span { margin-right: 1.4em; }
-  main { padding: 2rem 1.5rem 4rem; }
-  h2 { font-size: 1.15rem; color: #6d1919; margin: 2.2em 0 .6em; border-bottom: 1px solid #d9d2c3; padding-bottom: .3em; }
-  h2:first-child { margin-top: .4em; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; padding: 2rem 1.5rem; }
+  .grid a { display: block; border-radius: 10px; overflow: hidden; border: 1px solid #d9d2c3; background: #fff; transition: transform .12s ease, box-shadow .12s ease; }
+  .grid a:hover { transform: translateY(-3px); box-shadow: 0 6px 18px rgba(43,42,38,.15); }
+  .grid img { display: block; width: 100%; height: auto; }
+  main.notes { padding: 2rem 1.5rem 4rem; }
+  main.notes h2 { font-size: 1.15rem; color: #6d1919; margin: 2.2em 0 .6em; border-bottom: 1px solid #d9d2c3; padding-bottom: .3em; }
+  main.notes h2:first-child { margin-top: .4em; }
   .thm { border-left: 3px solid #6d1919; background: #f2ede1; padding: .9em 1.2em; margin: 1.2em 0; }
   .thm b { display: block; font-variant: small-caps; margin-bottom: .4em; }
   .eq { text-align: center; font-size: 1.06rem; margin: 1.1em 0; }
   ol li, ul li { margin-bottom: .45em; }
   code { font-size: .95em; }
-  footer { text-align: center; font-size: .8rem; color: #97917f; padding-bottom: 3rem; }
+  footer { text-align: center; font-size: .8rem; color: #97917f; padding: 2rem 0 3rem; }
+  footer a { color: #97917f; }
 </style>
 </head>
 <body>
 <header>
   <div class="wrap">
-    <h1>MATH 41B · AP Calculus BC — Course Notes</h1>
-    <p>Unit review summaries, theorem statements and worked problem sets.</p>
-    <nav><span>UNIT 1 — LIMITS</span><span>UNIT 2 — DIFFERENTIATION</span><span>UNIT 3 — INTEGRATION</span><span>UNIT 4 — SERIES</span></nav>
+    <h1>🥔 friendly potato</h1>
+    <p>pick a card, take a break</p>
   </div>
 </header>
+
 <main class="wrap">
+  <div class="grid">
+    <a href="games/pacman/index.html"><img src="games/pacman/shot.png" alt="Pac-Man"></a>
+    <a href="games/spacehuggers/index.html"><img src="games/spacehuggers/shot.png" alt="Space Huggers — roguelike platformer"></a>
+    <a href="games/q1k3/index.html"><img src="games/q1k3/shot.png" alt="Q1K3 — mini FPS"></a>
+    <a href="games/tetris-2p/index.html"><img src="games/tetris-2p/shot.png" alt="2-Player Tetris"></a>
+    <a href="games/tank-battle-2p/index.html"><img src="games/tank-battle-2p/shot.png" alt="Tank Battle 2-Player"></a>
+    <a href="tanks/index.html"><img src="tanks/shot.png" alt="Tanks — two player"></a>
+    <a href="games/knight/index.html"><img src="games/knight/shot.png" alt="Escape the Factory — metroidvania"></a>
+    <a href="games/hexgl/index.html"><img src="games/hexgl/shot.png" alt="HexGL — 3D futuristic racing"></a>
+    <a href="games/invaders/index.html"><img src="games/invaders/shot.png" alt="Space Invaders"></a>
+    <a href="games/doom/doom.html"><img src="games/doom/shot.png" alt="Doom-like shooter"></a>
+    <a href="games/breakout/index.html"><img src="games/breakout/shot.png" alt="Breakout"></a>
+    <a href="games/minesweeper/index.html"><img src="games/minesweeper/shot.png" alt="Minesweeper"></a>
+    <a href="games/retro/lunar-lander/index.html"><img src="games/retro/lunar-lander/shot.png" alt="Lunar Lander"></a>
+    <a href="games/retro/snake/index.html"><img src="games/retro/snake/shot.png" alt="Snake"></a>
+    <a href="games/2048/index.html"><img src="games/2048/shot.png" alt="2048"></a>
+    <a href="games/t-rex-runner/index.html"><img src="games/t-rex-runner/shot.png" alt="Dino Run"></a>
+    <a href="games/pool/index.html"><img src="games/pool/shot.png" alt="8 Ball Pool"></a>
+    <a href="games/hextris/index.html"><img src="games/hextris/shot.png" alt="Hextris"></a>
+    <a href="games/clumsy-bird/index.html"><img src="games/clumsy-bird/shot.png" alt="Flappy Bird"></a>
+    <a href="games/tower/index.html"><img src="games/tower/shot.png" alt="Tower Blocks"></a>
+    <a href="games/chess/index.html"><img src="games/chess/shot.png" alt="Chess vs computer"></a>
+    <a href="games/asteroids/index.html"><img src="games/asteroids/shot.png" alt="Asteroids"></a>
+    <a href="games/missile/index.html"><img src="games/missile/shot.png" alt="Missile Game"></a>
+    <a href="games/house/index.html"><img src="games/house/shot.png" alt="The House — horror escape"></a>
+  </div>
+</main>
+
+<header>
+  <div class="wrap narrow">
+    <h1>MATH 41B · AP Calculus BC — Course Notes</h1>
+    <p>Unit review summaries, theorem statements and worked problem sets.</p>
+  </div>
+</header>
+
+<main class="notes wrap narrow">
   <h2>1. Limits and Continuity</h2>
   <div class="thm"><b>Theorem (ε–δ definition).</b>
     <code>lim<sub>x→a</sub> f(x) = L</code> ⇔ for every ε &gt; 0 there exists δ &gt; 0 such that
@@ -66,7 +106,7 @@
   </div>
   <div class="eq">e<sup>x</sup> = Σ<sub>n=0</sub><sup>∞</sup> x<sup>n</sup>/n! &nbsp;;&nbsp; arctan x = Σ (−1)<sup>n</sup> x<sup>2n+1</sup>/(2n+1)</div>
 
-  <footer>© 2026 MATH 41B course notes · revised for the spring term</footer>
+  <footer>© 2026 MATH 41B course notes · revised for the spring term · <a href="games/CREDITS.md">credits</a></footer>
 </main>
 </body>
 </html>
