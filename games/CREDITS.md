@@ -24,6 +24,10 @@ public GitHub repository, unmodified. License texts are in `_licenses/`.
 | games/minesweeper | https://github.com/Joeynoh/HTML5-Minesweeper | MIT |
 | games/breakout | https://github.com/igameproject/Breakout | MIT |
 | games/doom | https://github.com/carlini/js13k2019-yet-another-doom-clone | GPL-3.0 |
+| games/wordle | https://github.com/WebDevSimplified/wordle-clone | MIT |
+| games/adarkroom | https://github.com/doublespeakgames/adarkroom | MPL-2.0 |
+| games/candybox | https://github.com/candybox2/candybox2.github.io | GNU GPL (source-code license file included) |
+| games/crossroad | https://gitlab.com/andybalaam/cross-the-road | AGPL-3.0 |
 | games/doom-freedoom | https://github.com/spipu/doom-js | MIT (engine, paths made relative; WAD launcher banner added) + Freedoom2 WAD: https://github.com/freedoom/freedoom BSD-like |
 | games/underrun | https://github.com/phoboslab/underrun | MIT (source/loading page copied as index.html) |
 | games/dante | https://github.com/SalvatorePreviti/js13k-2022 | MIT (js13k 2022 winner "Dante") |
