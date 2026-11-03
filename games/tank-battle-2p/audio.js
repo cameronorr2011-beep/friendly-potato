@@ -1,0 +1,709 @@
+/**
+ * Audio Synthesizer for Retro Tank Battle
+ * Pure Web Audio API - Zero External Dependencies
+ */
+// Master level and output chain. The synth voices were mixed for headphones:
+// mostly low thumps peaking at -18 dBFS, about 20 dB under typical web media,
+// which TV and laptop speakers barely reproduce. The master is now ~3x louder
+// and a compressor keeps stacked explosions from clipping.
+const MASTER_LEVEL = 0.95;
+
+class SoundFX {
+  constructor() {
+    this.ctx = null;
+    this.masterGain = null;
+    this.engineOsc = null;
+    this.engineGain = null;
+    this.listeners = [];
+    try { this.muted = localStorage.getItem('tankBattle.muted') === '1'; } catch (e) { this.muted = false; }
+    this.armUnlock();
+    // tab hidden or iOS interruption suspends the context: resume on return
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden && this.ctx && this.ctx.state !== 'running') this.ctx.resume().catch(() => {});
+    });
+  }
+
+  /**
+   * Browsers only start audio from a user gesture (click, tap, key). The
+   * context is created and unlocked inside the first one; until then sounds
+   * are skipped instead of queuing on a blocked context.
+   */
+  armUnlock() {
+    if (this.unlockArmed) return;
+    this.unlockArmed = true;
+    const events = ['pointerdown', 'pointerup', 'mousedown', 'touchend', 'keydown', 'click'];
+    const handler = () => {
+      this.unlock();
+      if (this.ctx && this.ctx.state === 'running') {
+        events.forEach(ev => window.removeEventListener(ev, handler, true));
+        this.unlockArmed = false;
+      }
+    };
+    events.forEach(ev => window.addEventListener(ev, handler, true));
+  }
+
+  unlock() {
+    if (!this.ctx) this.init();
+    if (!this.ctx) return;
+    this.gestured = true;
+    if (this.ctx.state !== 'running') this.ctx.resume().then(() => this.notify(), () => {});
+    // iOS: a sound started inside the gesture opens the audio output
+    try {
+      const b = this.ctx.createBufferSource();
+      b.buffer = this.ctx.createBuffer(1, 1, this.ctx.sampleRate);
+      b.connect(this.ctx.destination); b.start(0);
+    } catch (e) {}
+  }
+
+  init() {
+    if (this.ctx) return;
+    try {
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContext) return;
+      // iOS 16.4+: play through the speaker even with the ringer switch on silent
+      if (navigator.audioSession) { try { navigator.audioSession.type = 'playback'; } catch (e) {} }
+      this.ctx = new AudioContext();
+      this.masterGain = this.ctx.createGain();
+      this.masterGain.gain.setValueAtTime(this.muted ? 0 : MASTER_LEVEL, this.ctx.currentTime);
+      const comp = this.ctx.createDynamicsCompressor();
+      comp.threshold.value = -14; comp.knee.value = 8; comp.ratio.value = 12;
+      comp.attack.value = 0.002; comp.release.value = 0.15;
+      this.masterGain.connect(comp);
+      comp.connect(this.ctx.destination);
+      this.output = comp;      // what reaches the speakers (tests measure it)
+      this.ctx.addEventListener('statechange', () => {
+        if (this.ctx.state !== 'running' && this.ctx.state !== 'closed') this.armUnlock();
+        this.notify();
+      });
+    } catch (e) {
+      console.warn('Web Audio API not supported or blocked:', e);
+    }
+  }
+
+  // Sounds play only once a gesture has unlocked audio
+  ensureContext() {
+    if (this.ctx && this.ctx.state !== 'running' && this.ctx.state !== 'closed') this.ctx.resume().catch(() => {});
+  }
+  // A context resuming inside the gesture plays what is scheduled now as soon
+  // as it runs, so the sound of the very first click is not lost.
+  ready() { return !!this.ctx && this.gestured && this.ctx.state !== 'closed'; }
+
+  /** 'on' | 'muted' | 'locked' (waiting for a click or key to start audio) */
+  status() { return this.muted ? 'muted' : this.ctx && this.ctx.state === 'running' ? 'on' : 'locked'; }
+  onChange(fn) { this.listeners.push(fn); }
+  notify() { this.listeners.forEach(fn => fn(this.status())); }
+
+  toggleMute() {
+    this.muted = !this.muted;
+    try { localStorage.setItem('tankBattle.muted', this.muted ? '1' : '0'); } catch (e) {}
+    if (this.muted) this.stopEngine();
+    if (this.masterGain && this.ctx) {
+      this.masterGain.gain.setValueAtTime(this.muted ? 0 : MASTER_LEVEL, this.ctx.currentTime);
+    }
+    this.notify();
+    return this.muted;
+  }
+
+  /**
+   * Helper: create a buffer of white noise
+   */
+  createNoiseBuffer(duration = 1.0) {
+    if (!this.ctx) return null;
+    // White noise is reusable: build each length once instead of per sound
+    this.noiseCache = this.noiseCache || new Map();
+    const key = Math.round(duration * 100);
+    if (this.noiseCache.has(key)) return this.noiseCache.get(key);
+    const bufferSize = Math.floor(this.ctx.sampleRate * duration);
+    const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+    const output = buffer.getChannelData(0);
+    for (let i = 0; i < bufferSize; i++) {
+      output[i] = Math.random() * 2 - 1;
+    }
+    this.noiseCache.set(key, buffer);
+    return buffer;
+  }
+
+  // Bright noise snap on top of the low thump, so shots and blasts carry on
+  // small speakers that can't play the bass
+  crack(vol = 0.35, dur = 0.09, freq = 1800) {
+    if (!this.ready()) return;
+    const now = this.ctx.currentTime;
+    const noise = this.ctx.createBufferSource();
+    noise.buffer = this.createNoiseBuffer(0.3);
+    const hp = this.ctx.createBiquadFilter();
+    hp.type = 'bandpass'; hp.Q.value = 0.7;
+    hp.frequency.setValueAtTime(freq, now);
+    hp.frequency.exponentialRampToValueAtTime(freq * 0.4, now + dur);
+    const g = this.ctx.createGain();
+    g.gain.setValueAtTime(vol, now);
+    g.gain.exponentialRampToValueAtTime(0.001, now + dur);
+    noise.connect(hp); hp.connect(g); g.connect(this.masterGain);
+    noise.start(now); noise.stop(now + dur);
+  }
+
+  // Short tone helper for the newer sounds
+  tone(type, f0, f1, dur, vol, delay = 0) {
+    if (this.muted) return;
+    this.ensureContext();
+    if (!this.ready()) return;
+    const now = this.ctx.currentTime + delay;
+    const osc = this.ctx.createOscillator(), gain = this.ctx.createGain();
+    osc.type = type;
+    osc.frequency.setValueAtTime(f0, now);
+    osc.frequency.exponentialRampToValueAtTime(Math.max(20, f1), now + dur);
+    gain.gain.setValueAtTime(vol, now);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + dur);
+    osc.connect(gain); gain.connect(this.masterGain);
+    osc.start(now); osc.stop(now + dur);
+  }
+
+  // Homing missile acquiring its target: two quick beeps
+  playHomingLock() {
+    this.tone('square', 1320, 1320, 0.06, 0.12);
+    this.tone('square', 1760, 1760, 0.08, 0.12, 0.09);
+  }
+
+  // Napalm splash: filtered noise whoosh
+  playNapalm() {
+    if (this.muted) return;
+    this.ensureContext();
+    if (!this.ready()) return;
+    const now = this.ctx.currentTime;
+    const noise = this.ctx.createBufferSource();
+    noise.buffer = this.createNoiseBuffer(0.8);
+    const filter = this.ctx.createBiquadFilter();
+    filter.type = 'bandpass';
+    filter.frequency.setValueAtTime(300, now);
+    filter.frequency.exponentialRampToValueAtTime(1800, now + 0.25);
+    filter.frequency.exponentialRampToValueAtTime(400, now + 0.8);
+    const gain = this.ctx.createGain();
+    gain.gain.setValueAtTime(0.5, now);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.8);
+    noise.connect(filter); filter.connect(gain); gain.connect(this.masterGain);
+    noise.start(now); noise.stop(now + 0.8);
+  }
+
+  // Bomber fly-over drone
+  playPlane() {
+    this.tone('sawtooth', 70, 110, 1.4, 0.10);
+    this.tone('sawtooth', 72, 112, 1.4, 0.08, 0.02);
+  }
+
+  /**
+   * UI Click / Blip sound
+   */
+  playClick(pitch = 800) {
+    if (this.muted) return;
+    this.ensureContext();
+    if (!this.ready()) return;
+
+    const osc = this.ctx.createOscillator();
+    const gain = this.ctx.createGain();
+
+    osc.type = 'square';
+    osc.frequency.setValueAtTime(pitch, this.ctx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(pitch * 0.5, this.ctx.currentTime + 0.04);
+
+    gain.gain.setValueAtTime(0.15, this.ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.04);
+
+    osc.connect(gain);
+    gain.connect(this.masterGain);
+
+    osc.start();
+    osc.stop(this.ctx.currentTime + 0.04);
+  }
+
+  /**
+   * Weapon select chime
+   */
+  playWeaponSelect() {
+    if (this.muted) return;
+    this.ensureContext();
+    if (!this.ready()) return;
+
+    const now = this.ctx.currentTime;
+    const osc = this.ctx.createOscillator();
+    const gain = this.ctx.createGain();
+
+    osc.type = 'triangle';
+    osc.frequency.setValueAtTime(440, now);
+    osc.frequency.setValueAtTime(660, now + 0.04);
+
+    gain.gain.setValueAtTime(0.2, now);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+
+    osc.connect(gain);
+    gain.connect(this.masterGain);
+
+    osc.start();
+    osc.stop(now + 0.12);
+  }
+
+  /**
+   * Turn change fanfare / chime
+   */
+  playTurnStart(isPlayer1) {
+    if (this.muted) return;
+    this.ensureContext();
+    if (!this.ready()) return;
+
+    const notes = isPlayer1 ? [330, 440, 554] : [440, 392, 587];
+    notes.forEach((freq, idx) => {
+      const start = this.ctx.currentTime + idx * 0.08;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(freq, start);
+
+      gain.gain.setValueAtTime(0.18, start);
+      gain.gain.exponentialRampToValueAtTime(0.001, start + 0.15);
+
+      osc.connect(gain);
+      gain.connect(this.masterGain);
+
+      osc.start(start);
+      osc.stop(start + 0.15);
+    });
+  }
+
+  /**
+   * Weapon Firing Sounds
+   */
+  playShoot(weaponId) {
+    if (this.muted) return;
+    this.ensureContext();
+    if (!this.ready()) return;
+
+    const now = this.ctx.currentTime;
+    this.crack(weaponId === 'nuke' ? 0.5 : 0.4, weaponId === 'nuke' ? 0.16 : 0.09);
+
+    if (weaponId === 'nuke') {
+      // Massive deep cannon thump + sub-bass
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(150, now);
+      osc.frequency.exponentialRampToValueAtTime(25, now + 0.4);
+
+      gain.gain.setValueAtTime(0.5, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
+
+      const noise = this.ctx.createBufferSource();
+      noise.buffer = this.createNoiseBuffer(0.5);
+      const filter = this.ctx.createBiquadFilter();
+      filter.type = 'lowpass';
+      filter.frequency.setValueAtTime(400, now);
+      filter.frequency.exponentialRampToValueAtTime(50, now + 0.5);
+
+      const noiseGain = this.ctx.createGain();
+      noiseGain.gain.setValueAtTime(0.6, now);
+      noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
+
+      osc.connect(gain);
+      gain.connect(this.masterGain);
+
+      noise.connect(filter);
+      filter.connect(noiseGain);
+      noiseGain.connect(this.masterGain);
+
+      osc.start(now);
+      osc.stop(now + 0.45);
+      noise.start(now);
+      noise.stop(now + 0.5);
+    } else if (weaponId === 'mirv') {
+      // High-tech release pop
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = 'square';
+      osc.frequency.setValueAtTime(450, now);
+      osc.frequency.exponentialRampToValueAtTime(120, now + 0.15);
+
+      gain.gain.setValueAtTime(0.3, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.18);
+
+      osc.connect(gain);
+      gain.connect(this.masterGain);
+
+      osc.start(now);
+      osc.stop(now + 0.18);
+    } else if (weaponId === 'dirt') {
+      // Earthy pneumatic 'plunk'
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(220, now);
+      osc.frequency.exponentialRampToValueAtTime(70, now + 0.2);
+
+      gain.gain.setValueAtTime(0.4, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
+
+      osc.connect(gain);
+      gain.connect(this.masterGain);
+
+      osc.start(now);
+      osc.stop(now + 0.22);
+    } else if (weaponId === 'bouncy') {
+      // Boing sound
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(180, now);
+      osc.frequency.linearRampToValueAtTime(420, now + 0.08);
+      osc.frequency.exponentialRampToValueAtTime(140, now + 0.25);
+
+      gain.gain.setValueAtTime(0.35, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+
+      osc.connect(gain);
+      gain.connect(this.masterGain);
+
+      osc.start(now);
+      osc.stop(now + 0.25);
+    } else if (weaponId === 'sniper') {
+      // High-velocity laser / rail blast
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(1200, now);
+      osc.frequency.exponentialRampToValueAtTime(80, now + 0.15);
+
+      gain.gain.setValueAtTime(0.35, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.18);
+
+      osc.connect(gain);
+      gain.connect(this.masterGain);
+
+      osc.start(now);
+      osc.stop(now + 0.18);
+    } else if (weaponId === 'drill') {
+      // Subterranean rocket thruster + mechanical drill spin
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(220, now);
+      osc.frequency.linearRampToValueAtTime(540, now + 0.1);
+      osc.frequency.exponentialRampToValueAtTime(90, now + 0.3);
+
+      gain.gain.setValueAtTime(0.4, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.32);
+
+      const noise = this.ctx.createBufferSource();
+      noise.buffer = this.createNoiseBuffer(0.3);
+      const filter = this.ctx.createBiquadFilter();
+      filter.type = 'bandpass';
+      filter.frequency.setValueAtTime(600, now);
+      filter.Q.setValueAtTime(3.0, now);
+
+      const noiseGain = this.ctx.createGain();
+      noiseGain.gain.setValueAtTime(0.35, now);
+      noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+
+      osc.connect(gain);
+      gain.connect(this.masterGain);
+
+      noise.connect(filter);
+      filter.connect(noiseGain);
+      noiseGain.connect(this.masterGain);
+
+      osc.start(now);
+      osc.stop(now + 0.32);
+      noise.start(now);
+      noise.stop(now + 0.3);
+    } else {
+      // Standard Shell: Punchy 8-bit cannon shot
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(260, now);
+      osc.frequency.exponentialRampToValueAtTime(55, now + 0.2);
+
+      gain.gain.setValueAtTime(0.35, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
+
+      const noise = this.ctx.createBufferSource();
+      noise.buffer = this.createNoiseBuffer(0.2);
+      const filter = this.ctx.createBiquadFilter();
+      filter.type = 'lowpass';
+      filter.frequency.setValueAtTime(800, now);
+      filter.frequency.exponentialRampToValueAtTime(100, now + 0.2);
+
+      const noiseGain = this.ctx.createGain();
+      noiseGain.gain.setValueAtTime(0.4, now);
+      noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+
+      osc.connect(gain);
+      gain.connect(this.masterGain);
+
+      noise.connect(filter);
+      filter.connect(noiseGain);
+      noiseGain.connect(this.masterGain);
+
+      osc.start(now);
+      osc.stop(now + 0.22);
+      noise.start(now);
+      noise.stop(now + 0.2);
+    }
+  }
+
+  /**
+   * MIRV Bomblet Separation Pop
+   */
+  playClusterSplit() {
+    if (this.muted) return;
+    this.ensureContext();
+    if (!this.ready()) return;
+
+    for (let i = 0; i < 4; i++) {
+      const t = this.ctx.currentTime + i * 0.035;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = 'square';
+      osc.frequency.setValueAtTime(600 + i * 80, t);
+      osc.frequency.exponentialRampToValueAtTime(180, t + 0.05);
+
+      gain.gain.setValueAtTime(0.18, t);
+      gain.gain.exponentialRampToValueAtTime(0.001, t + 0.05);
+
+      osc.connect(gain);
+      gain.connect(this.masterGain);
+      osc.start(t);
+      osc.stop(t + 0.05);
+    }
+  }
+
+  /**
+   * Rubber bounce sound for Bouncy Shell
+   */
+  playBounce() {
+    if (this.muted) return;
+    this.ensureContext();
+    if (!this.ready()) return;
+
+    const now = this.ctx.currentTime;
+    const osc = this.ctx.createOscillator();
+    const gain = this.ctx.createGain();
+
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(260, now);
+    osc.frequency.exponentialRampToValueAtTime(520, now + 0.06);
+
+    gain.gain.setValueAtTime(0.25, now);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.09);
+
+    osc.connect(gain);
+    gain.connect(this.masterGain);
+
+    osc.start(now);
+    osc.stop(now + 0.09);
+  }
+
+  /**
+   * Crunchy mechanical subterranean grinding sound
+   */
+  playDrillGrind() {
+    if (this.muted) return;
+    this.ensureContext();
+    if (!this.ready()) return;
+
+    const now = this.ctx.currentTime;
+    const osc = this.ctx.createOscillator();
+    const gain = this.ctx.createGain();
+
+    osc.type = 'sawtooth';
+    osc.frequency.setValueAtTime(80 + Math.random() * 60, now);
+    osc.frequency.linearRampToValueAtTime(35, now + 0.07);
+
+    gain.gain.setValueAtTime(0.18, now);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.07);
+
+    osc.connect(gain);
+    gain.connect(this.masterGain);
+
+    osc.start(now);
+    osc.stop(now + 0.07);
+  }
+
+  /**
+   * Explosion crunch & rumble with variable radius
+   */
+  playExplosion(radius = 25) {
+    if (this.muted) return;
+    this.ensureContext();
+    if (!this.ready()) return;
+
+    const now = this.ctx.currentTime;
+    const duration = Math.min(1.2, 0.3 + (radius / 50) * 0.6);
+    this.crack(Math.min(0.7, 0.3 + radius / 80), Math.min(0.35, 0.1 + radius / 250), 1400);
+
+    // Noise rumble
+    const noise = this.ctx.createBufferSource();
+    noise.buffer = this.createNoiseBuffer(duration);
+
+    const filter = this.ctx.createBiquadFilter();
+    filter.type = 'lowpass';
+    const startFreq = Math.min(1200, 300 + radius * 12);
+    filter.frequency.setValueAtTime(startFreq, now);
+    filter.frequency.exponentialRampToValueAtTime(40, now + duration);
+
+    const gain = this.ctx.createGain();
+    const vol = Math.min(0.8, 0.3 + (radius / 60) * 0.4);
+    gain.gain.setValueAtTime(vol, now);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + duration);
+
+    noise.connect(filter);
+    filter.connect(gain);
+    gain.connect(this.masterGain);
+
+    noise.start(now);
+    noise.stop(now + duration);
+
+    // Low sub-bass kick
+    const sub = this.ctx.createOscillator();
+    const subGain = this.ctx.createGain();
+    sub.type = 'triangle';
+    sub.frequency.setValueAtTime(90, now);
+    sub.frequency.exponentialRampToValueAtTime(25, now + duration * 0.7);
+
+    subGain.gain.setValueAtTime(vol * 0.7, now);
+    subGain.gain.exponentialRampToValueAtTime(0.001, now + duration * 0.7);
+
+    sub.connect(subGain);
+    subGain.connect(this.masterGain);
+
+    sub.start(now);
+    sub.stop(now + duration * 0.7);
+  }
+
+  /**
+   * Dirt Bomb deposit rumble
+   */
+  playDirtDeposit() {
+    if (this.muted) return;
+    this.ensureContext();
+    if (!this.ready()) return;
+
+    const now = this.ctx.currentTime;
+    const noise = this.ctx.createBufferSource();
+    noise.buffer = this.createNoiseBuffer(0.5);
+
+    const filter = this.ctx.createBiquadFilter();
+    filter.type = 'bandpass';
+    filter.frequency.setValueAtTime(250, now);
+    filter.frequency.exponentialRampToValueAtTime(80, now + 0.5);
+
+    const gain = this.ctx.createGain();
+    gain.gain.setValueAtTime(0.35, now);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
+
+    noise.connect(filter);
+    filter.connect(gain);
+    gain.connect(this.masterGain);
+
+    noise.start(now);
+    noise.stop(now + 0.5);
+  }
+
+  /**
+   * Fall damage crunch
+   */
+  playFallDamage() {
+    if (this.muted) return;
+    this.ensureContext();
+    if (!this.ready()) return;
+
+    const now = this.ctx.currentTime;
+    const osc = this.ctx.createOscillator();
+    const gain = this.ctx.createGain();
+
+    osc.type = 'sawtooth';
+    osc.frequency.setValueAtTime(140, now);
+    osc.frequency.exponentialRampToValueAtTime(40, now + 0.15);
+
+    gain.gain.setValueAtTime(0.4, now);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+
+    osc.connect(gain);
+    gain.connect(this.masterGain);
+
+    osc.start(now);
+    osc.stop(now + 0.15);
+  }
+
+  /**
+   * Continuous engine chug while tank moves
+   */
+  startEngine() {
+    if (this.muted || this.engineOsc) return;
+    this.ensureContext();
+    if (!this.ready()) return;
+
+    try {
+      this.engineOsc = this.ctx.createOscillator();
+      this.engineGain = this.ctx.createGain();
+
+      this.engineOsc.type = 'sawtooth';
+      this.engineOsc.frequency.setValueAtTime(45, this.ctx.currentTime);
+
+      this.engineGain.gain.setValueAtTime(0.08, this.ctx.currentTime);
+
+      this.engineOsc.connect(this.engineGain);
+      this.engineGain.connect(this.masterGain);
+
+      this.engineOsc.start();
+    } catch (e) {}
+  }
+
+  stopEngine() {
+    if (this.engineOsc) {
+      try {
+        this.engineOsc.stop();
+        this.engineOsc.disconnect();
+      } catch (e) {}
+      this.engineOsc = null;
+      this.engineGain = null;
+    }
+  }
+
+  /**
+   * Triumphant 8-bit retro victory fanfare
+   */
+  playVictory() {
+    if (this.muted) return;
+    this.ensureContext();
+    if (!this.ready()) return;
+
+    const melody = [
+      { f: 261.63, d: 0.12 }, // C4
+      { f: 329.63, d: 0.12 }, // E4
+      { f: 392.00, d: 0.12 }, // G4
+      { f: 523.25, d: 0.28 }, // C5
+      { f: 392.00, d: 0.12 }, // G4
+      { f: 523.25, d: 0.45 }, // C5
+    ];
+
+    let time = this.ctx.currentTime + 0.1;
+    melody.forEach((note) => {
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+
+      osc.type = 'square';
+      osc.frequency.setValueAtTime(note.f, time);
+
+      gain.gain.setValueAtTime(0.2, time);
+      gain.gain.exponentialRampToValueAtTime(0.001, time + note.d);
+
+      osc.connect(gain);
+      gain.connect(this.masterGain);
+
+      osc.start(time);
+      osc.stop(time + note.d);
+
+      time += note.d + 0.03;
+    });
+  }
+}
+
+// Global instance
+window.soundFX = new SoundFX();

@@ -16,6 +16,9 @@ public GitHub repository, unmodified. License texts are in `_licenses/`.
 | games/missile | https://github.com/bwhmather/missile-game | AGPL-3.0 |
 | games/house | https://github.com/arturkot/the-house-game | MIT |
 | games/chess | https://github.com/attogram/chess | MIT |
+| games/tetris-2p | https://github.com/pemmyz/js_2player_tetris | MIT |
+| games/tank-battle-2p | https://github.com/kothf/tank-battle | MIT |
+| games/knight | https://github.com/JSLegendDev/JavaScript-Metroidvania | MIT |
 | tanks/ | https://github.com/niccolofanton/tanks-game | MIT |
 
 `shot.png` files in each folder are screenshots of the games, generated for the hub page.
