@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mind Reader 1000</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: system-ui, sans-serif; background: #14131a; color: #eee; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .7em; padding: 12px; }
+  h1 { font-size: 1.25rem; }
+  h1 .ic { accent }
+  .hud { font-size: .95rem; opacity: .85; }
+  footer { font-size: .78rem; opacity: .55; text-align: center; }
+  a { color: #ffd166; text-decoration: none; }
+  button { background: #ffd166; border: 0; color: #17161c; font-weight: 600; padding: .5em 1.2em; border-radius: 8px; cursor: pointer; font-size: .9rem; }
+  canvas { border: 2px solid #3a3a44; border-radius: 6px; max-width: 100%; touch-action: none; }
+  
+</style>
+</head>
+<body>
+<h1><span class="ic">📡</span> Mind Reader 1000</h1>
+<div class="hud">Tries: <span id="msg">Go on, guess</span></div><input id="n" type="number" style="font-size:1.3rem;padding:.5em;border-radius:8px;border:2px solid #ffd166;background:#222;color:#fff;width:140px;text-align:center"><button id="go">🎯 Guess</button>
+<footer id="ctrl"></footer>
+<a href="../archive.html">← back</a>
+<script>
+
+const HI = 1000;
+const target = 1 + Math.random() * HI | 0;
+let tries = 0;
+const msg = document.getElementById('msg'), inp = document.getElementById('n');
+inp.max = HI;
+document.getElementById('go').addEventListener('click', guess);
+inp.addEventListener('keydown', e => { if (e.key === 'Enter') guess(); });
+function guess() {
+  const v2 = +inp.value;
+  if (!v2 || v2 < 1 || v2 > HI) return;
+  tries++;
+  if (v2 === target) {
+    msg.textContent = '🎉 Correct! ' + target + ' in ' + tries + ' tries.';
+    document.getElementById('go').textContent = '↺ New number';
+    inp.value = '';
+    if (tries >= 2) {
+      document.getElementById('go').onclick = () => location.reload();
+      return;
+    }
+    const t2 = 1 + Math.random() * HI | 0;
+    } else {
+    msg.textContent = v2 < target ? '⬆ Higher… (after ' + tries + ' tries)' : '⬇ Lower… (after ' + tries + ' tries)';
+    inp.select();
+  }
+}
+document.getElementById('ctrl').textContent = 'I am thinking of a number between 1 and ' + HI;
+
+</script>
+</body>
+</html>

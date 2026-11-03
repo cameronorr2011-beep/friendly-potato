@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Whack Chill</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: system-ui, sans-serif; background: #14131a; color: #eee; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .7em; padding: 12px; }
+  h1 { font-size: 1.25rem; }
+  h1 .ic { accent }
+  .hud { font-size: .95rem; opacity: .85; }
+  footer { font-size: .78rem; opacity: .55; text-align: center; }
+  a { color: #7ee787; text-decoration: none; }
+  button { background: #7ee787; border: 0; color: #17161c; font-weight: 600; padding: .5em 1.2em; border-radius: 8px; cursor: pointer; font-size: .9rem; }
+  canvas { border: 2px solid #3a3a44; border-radius: 6px; max-width: 100%; touch-action: none; }
+  
+  #w { display: grid; grid-template-columns: repeat(3, 72px); gap: 8px; }
+  .h { background: #151d24; border: 2px solid #3a3a44; border-radius: 10px; display: flex; align-items: center; justify-content: center; cursor: pointer; user-select: none; }
+
+</style>
+</head>
+<body>
+<h1><span class="ic">🧘</span> Whack Chill</h1>
+<div class="hud">Score <b id="score">0</b> · <b id="time">30s</b></div><div id="w"></div>
+<footer id="ctrl"></footer>
+<a href="../archive.html">← back</a>
+<script>
+
+const W = document.getElementById('w'), ROWS = 3, COLS = 3, SHOW = 1200;
+const cells = [];
+for (let r = 0; r < ROWS * COLS; r++) {
+  const d = document.createElement('div'); d.className = 'h'; W.appendChild(d);
+  d.style.width = d.style.height = '72px'; d.style.fontSize = '1.8rem';
+  cells.push(d);
+}
+let score = 0, ms = 30, cur = -1;
+const ct = setInterval(() => {
+  ms--; document.getElementById('time').textContent = ms + 's';
+  if (ms <= 0) end();
+}, 1000);
+const gt = setInterval(hit, SHOW);
+function hit() {
+  if (cells[cur]) cells[cur].textContent = '';
+  cur = Math.random() * cells.length | 0;
+  cells[cur].innerHTML = '<span class="m">' + ['🐹','🐭','🐰','🐸'][Math.random()*4|0] + '</span>';
+}
+cells.forEach((d, idx) => d.addEventListener('pointerdown', () => {
+  if (idx === cur) { score++; hud(); cur = -1; d.textContent = '💥'; setTimeout(() => d.textContent = '', 120); }
+}));
+function hud() { document.getElementById('score').textContent = score; }
+function end() {
+  clearInterval(gt); clearInterval(ct);
+  document.getElementById('ctrl').innerHTML = 'Time! Final score: <b>' + score + '</b> · <button onclick="location.reload()">Play again</button>';
+}
+hud();
+
+</script>
+</body>
+</html>

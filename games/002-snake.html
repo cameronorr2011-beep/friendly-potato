@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wall Serpent</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: system-ui, sans-serif; background: #14131a; color: #eee; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .7em; padding: 12px; }
+  h1 { font-size: 1.25rem; }
+  h1 .ic { accent }
+  .hud { font-size: .95rem; opacity: .85; }
+  footer { font-size: .78rem; opacity: .55; text-align: center; }
+  a { color: #7ee787; text-decoration: none; }
+  button { background: #7ee787; border: 0; color: #17161c; font-weight: 600; padding: .5em 1.2em; border-radius: 8px; cursor: pointer; font-size: .9rem; }
+  canvas { border: 2px solid #3a3a44; border-radius: 6px; max-width: 100%; touch-action: none; }
+  
+</style>
+</head>
+<body>
+<h1><span class="ic">🧱</span> Wall Serpent</h1>
+<div class="hud">Score: <b id="score">0</b></div><canvas id="g" width="440" height="440"></canvas>
+<footer id="ctrl"></footer>
+<a href="../archive.html">← back</a>
+<script>
+
+const c = document.getElementById('g'), x = c.getContext('2d');
+const CELLS = 20, G = c.width / CELLS, SPEED = 110, WRAP = 0;
+let snake, dir, next, food, score, dead, timer;
+document.getElementById('ctrl').textContent = 'Arrow keys or WASD · ' + (WRAP ? 'edges wrap around' : 'walls are deadly') + ' · tap canvas to restart';
+function reset() {
+  snake = []; for (let j = 0; j < 3; j++) snake.push({x: (CELLS/2|0) - j, y: CELLS/2|0});
+  dir = {x: 1, y: 0}; next = null; score = 0; dead = false; place();
+  document.getElementById('score').textContent = 0;
+  clearInterval(timer); timer = setInterval(step, SPEED);
+}
+function place() {
+  do { food = {x: Math.random()*CELLS|0, y: Math.random()*CELLS|0}; }
+  while (snake.some(s => s.x === food.x && s.y === food.y));
+}
+function step() {
+  if (dead) return;
+  if (next) { dir = next; next = null; }
+  let hx = snake[0].x + dir.x, hy = snake[0].y + dir.y;
+  if (WRAP) { hx = (hx + CELLS) % CELLS; hy = (hy + CELLS) % CELLS; }
+  else if (hx < 0 || hy < 0 || hx >= CELLS || hy >= CELLS) { bad(); return; }
+  if (snake.some(s => s.x === hx && s.y === hy)) { bad(); return; }
+  snake.unshift({x: hx, y: hy});
+  if (hx === food.x && hy === food.y) {
+    score++; document.getElementById('score').textContent = score;
+    if (score % 5 === 0) clearInterval(timer), timer = setInterval(step, Math.max(45, SPEED - score * 2));
+    place();
+  } else snake.pop();
+  draw();
+}
+function bad() { dead = true; draw(); }
+function draw() {
+  x.fillStyle = '#151d24'; x.fillRect(0, 0, c.width, c.height);
+  x.fillStyle = '#7ee787';
+  x.beginPath(); x.arc(food.x*G + G/2, food.y*G + G/2, G/2 - 3, 0, 7); x.fill();
+  snake.forEach((s, n) => {
+    x.fillStyle = n === 0 ? '#7ee787' : '#ffffff';
+    x.globalAlpha = n === 0 ? 1 : .55;
+    x.fillRect(s.x*G + 1, s.y*G + 1, G - 2, G - 2);
+  });
+  x.globalAlpha = 1;
+  if (dead) {
+    x.fillStyle = 'rgba(0,0,0,.6)'; x.fillRect(0, c.height/2 - 50, c.width, 100);
+    x.fillStyle = '#fff'; x.font = 'bold 24px sans-serif'; x.textAlign = 'center';
+    x.fillText('Game Over · ' + score + ' points', c.width/2, c.height/2 - 5);
+    x.font = '14px sans-serif'; x.fillText('tap to play again', c.width/2, c.height/2 + 25);
+  }
+}
+const M = {ArrowUp:[0,-1],ArrowDown:[0,1],ArrowLeft:[-1,0],ArrowRight:[1,0],w:[0,-1],s:[0,1],a:[-1,0],d:[1,0]};
+document.addEventListener('keydown', e => {
+  const m = M[e.key] || M[e.key.toLowerCase()]; if (!m) return; e.preventDefault();
+  const nd = {x: m[0], y: m[1]};
+  if (nd.x !== -dir.x || nd.y !== -dir.y) next = nd;
+});
+c.addEventListener('pointerdown', () => dead && reset());
+reset();
+
+</script>
+</body>
+</html>

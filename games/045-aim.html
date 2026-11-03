@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pixel Hunt</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: system-ui, sans-serif; background: #14131a; color: #eee; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .7em; padding: 12px; }
+  h1 { font-size: 1.25rem; }
+  h1 .ic { accent }
+  .hud { font-size: .95rem; opacity: .85; }
+  footer { font-size: .78rem; opacity: .55; text-align: center; }
+  a { color: #ff9dbb; text-decoration: none; }
+  button { background: #ff9dbb; border: 0; color: #17161c; font-weight: 600; padding: .5em 1.2em; border-radius: 8px; cursor: pointer; font-size: .9rem; }
+  canvas { border: 2px solid #3a3a44; border-radius: 6px; max-width: 100%; touch-action: none; }
+  
+  #a { position: relative; width: 520px; max-width: 96vw; height: 420px; background: #241a24; border: 2px solid #3a3a44; border-radius: 6px; overflow: hidden; cursor: crosshair; }
+  .t { position: absolute; border-radius: 50%; background: #ff9dbb; box-shadow: 0 0 0 4px rgba(255,255,255,.15); }
+  .end { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .8em; font-size: 1.1rem; text-align: center; }
+
+</style>
+</head>
+<body>
+<h1><span class="ic">🔍</span> Pixel Hunt</h1>
+<div class="hud">Hits <b id="score">0</b> · <b id="time">30s</b> left</div><div id="a"></div>
+<footer id="ctrl"></footer>
+<a href="../archive.html">← back</a>
+<script>
+
+const arena = document.getElementById('a');
+const RR = 20, EVERY = 650, LIFE = 850;
+arena.addEventListener('pointerdown', e => {
+  if (e.target.classList.contains('t')) return;
+  score = Math.max(0, score - 1); hud();
+});
+let score = 0, left = 30, timer, pops, ended = false;
+const counter = setInterval(() => {
+  left--; document.getElementById('time').textContent = left + 's';
+  if (left <= 0) end();
+}, 1000);
+function hud() { document.getElementById('score').textContent = 'Hits ' + score; }
+function pop() {
+  if (ended) return;
+  const d = document.createElement('div');
+  d.className = 't';
+  d.style.width = d.style.height = RR * 2 + 'px';
+  const wr = arena.clientWidth - RR * 2 - 8, hr = arena.clientHeight - RR * 2 - 8;
+  d.style.left = RR + 4 + Math.random() * wr + 'px';
+  d.style.top = RR + 4 + Math.random() * hr + 'px';
+  d.addEventListener('pointerdown', () => {
+    if (!d.removed) { d.removed = 1; d.remove(); score++; hud(); }
+  });
+  arena.appendChild(d);
+  setTimeout(() => { if (!d.removed) { d.removed = 1; d.remove(); } }, LIFE);
+}
+timer = setInterval(pop, EVERY);
+function end() {
+  ended = true; clearInterval(timer); clearInterval(counter);
+  arena.innerHTML = '<div class="end">Time! You hit <b>' + score + '</b> targets.<br><button onclick="location.reload()">Play again</button></div>';
+}
+hud();
+
+</script>
+</body>
+</html>

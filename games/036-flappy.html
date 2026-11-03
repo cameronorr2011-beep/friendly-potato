@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flappy Night</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: system-ui, sans-serif; background: #14131a; color: #eee; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .7em; padding: 12px; }
+  h1 { font-size: 1.25rem; }
+  h1 .ic { accent }
+  .hud { font-size: .95rem; opacity: .85; }
+  footer { font-size: .78rem; opacity: .55; text-align: center; }
+  a { color: #7ee787; text-decoration: none; }
+  button { background: #7ee787; border: 0; color: #17161c; font-weight: 600; padding: .5em 1.2em; border-radius: 8px; cursor: pointer; font-size: .9rem; }
+  canvas { border: 2px solid #3a3a44; border-radius: 6px; max-width: 100%; touch-action: none; }
+  
+</style>
+</head>
+<body>
+<h1><span class="ic">🌙</span> Flappy Night</h1>
+<div class="hud">Score: <b id="score">0</b></div><canvas id="g" width="420" height="460"></canvas>
+<footer id="ctrl"></footer>
+<a href="../archive.html">← back</a>
+<script>
+
+const c = document.getElementById('g'), x = c.getContext('2d');
+const GAP = 130, SPD = 2.6, W = c.width, H = c.height;
+let by, vy, pipes, score, dead, t;
+reset();
+function reset() { by = H/2; vy = 0; pipes = []; score = 0; dead = false; t = 0;
+  document.getElementById('score').textContent = 0; }
+function flap() { if (dead) return reset(); vy = -6.5; }
+c.addEventListener('pointerdown', () => flap());
+document.addEventListener('keydown', e => { if (e.code === 'Space') { flap(); e.preventDefault(); } });
+function loop() {
+  if (!dead) {
+    t++;
+    vy += .38; by += vy;
+    if (t % 90 === 1) pipes.push({x: W + 20, gy: 60 + Math.random() * (H - GAP - 120), done: 0});
+    pipes.forEach(p => p.x -= SPD);
+    pipes = pipes.filter(p => p.x > -50);
+    for (const p of pipes) {
+      if (Math.abs(p.x - 70) < 26 && (by < p.gy || by > p.gy + GAP)) dead = true;
+      if (!p.done && p.x < 70) { p.done = 1; score++; document.getElementById('score').textContent = score; }
+    }
+    if (by > H - 8 || by < 8) dead = true;
+  }
+  x.fillStyle = '#151d24'; x.fillRect(0, 0, W, H);
+  x.fillStyle = '#7ee787';
+  pipes.forEach(p => { x.fillRect(p.x, 0, 40, p.gy); x.fillRect(p.x, p.gy + GAP, 40, H - p.gy - GAP); });
+  x.fillStyle = '#ffd166';
+  x.beginPath(); x.arc(70, by, 10, 0, 7); x.fill();
+  x.fillStyle = '#111'; x.fillRect(76, by - 3, 6, 3);
+  if (dead) {
+    x.fillStyle = 'rgba(0,0,0,.6)'; x.fillRect(0, H/2 - 50, W, 100);
+    x.fillStyle = '#fff'; x.font = 'bold 24px sans-serif'; x.textAlign = 'center';
+    x.fillText('Score ' + score + ' · tap to retry', W/2, H/2);
+  }
+  requestAnimationFrame(loop);
+}
+document.getElementById('ctrl').textContent = 'Tap / Space to flap through the gaps';
+loop();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Highway 66</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: system-ui, sans-serif; background: #14131a; color: #eee; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .7em; padding: 12px; }
+  h1 { font-size: 1.25rem; }
+  h1 .ic { accent }
+  .hud { font-size: .95rem; opacity: .85; }
+  footer { font-size: .78rem; opacity: .55; text-align: center; }
+  a { color: #9bd1ff; text-decoration: none; }
+  button { background: #9bd1ff; border: 0; color: #17161c; font-weight: 600; padding: .5em 1.2em; border-radius: 8px; cursor: pointer; font-size: .9rem; }
+  canvas { border: 2px solid #3a3a44; border-radius: 6px; max-width: 100%; touch-action: none; }
+  
+</style>
+</head>
+<body>
+<h1><span class="ic">🛣️</span> Highway 66</h1>
+<div class="hud">Score: <b id="score">0</b></div><canvas id="g" width="256" height="420"></canvas>
+<footer id="ctrl"></footer>
+<a href="../archive.html">← back</a>
+<script>
+
+const c = document.getElementById('g'), x = c.getContext('2d');
+const LANES = 4, W = c.width, H = c.height;
+const LW = W / LANES;
+let px, cars, score, dead, t, rush;
+reset();
+function reset() { px = 1; cars = []; score = 0; dead = false; t = 0;
+  document.getElementById('score').textContent = 0; }
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowLeft' && px > 0) px--;
+  if (e.key === 'ArrowRight' && px < LANES - 1) px++;
+  e.preventDefault();
+});
+c.addEventListener('pointerdown', e => {
+  if (dead) return reset();
+  const r = c.getBoundingClientRect(); const gx = (e.clientX - r.left) * (W/r.width);
+  const lane = Math.min(LANES - 1, Math.max(0, Math.floor(gx / LW)));
+  px = lane;
+});
+function loop() {
+  t++;
+  if (!dead) {
+    rush = 3.2 + t / 4000;
+    if (t % 46 === 0) {
+      const lane = Math.random() * LANES | 0;
+      if (!cars.some(z => Math.abs(z.lane - lane) === 0 && z.y < 90))
+        cars.push({lane, y: -40, w: LW - 16});
+    }
+    cars.forEach(z => z.y += rush);
+    cars = cars.filter(z => z.y < H + 40);
+    const mx = px * LW + 8, my = H - 70;
+    for (const z of cars) {
+      const zx = z.lane * LW + 8;
+      if (zx < mx + LW - 16 && zx + LW - 16 > mx && z.y < my + 50 && z.y + 34 > my) dead = true;
+    }
+    if (t % 60 === 0) { score++; document.getElementById('score').textContent = score; }
+  }
+  x.fillStyle = '#141a24'; x.fillRect(0, 0, W, H);
+  x.strokeStyle = '#3a3a44'; x.setLineDash([14, 18]);
+  for (let l = 1; l < LANES; l++) { x.beginPath(); x.moveTo(l * LW, 0); x.lineTo(l * LW, H); x.stroke(); }
+  x.setLineDash([]);
+  cars.forEach(z => {
+    x.fillStyle = ['#ff8a80', '#ffd166', '#a5d6a7', '#b8a6f2'][z.lane % 4];
+    x.fillRect(z.lane * LW + 8, z.y, LW - 16, 34);
+  });
+  x.fillStyle = '#9bd1ff';
+  x.fillRect(px * LW + 8, H - 70, LW - 16, 50);
+  x.fillStyle = '#111'; x.fillRect(px * LW + 14, H - 62, 6, 8); x.fillRect(px * LW + LW - 20, H - 62, 6, 8);
+  if (dead) {
+    x.fillStyle = 'rgba(0,0,0,.6)'; x.fillRect(0, H/2 - 50, W, 100);
+    x.fillStyle = '#fff'; x.font = 'bold 24px sans-serif'; x.textAlign = 'center';
+    x.fillText('Crashed · score ' + score, W/2, H/2 - 5);
+    x.font = '14px sans-serif'; x.fillText('tap to retry', W/2, H/2 + 25);
+  }
+  requestAnimationFrame(loop);
+}
+document.getElementById('ctrl').textContent = '←/→ to change lanes · tap a lane on touch screens';
+loop();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Math Sprint +</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: system-ui, sans-serif; background: #14131a; color: #eee; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .7em; padding: 12px; }
+  h1 { font-size: 1.25rem; }
+  h1 .ic { accent }
+  .hud { font-size: .95rem; opacity: .85; }
+  footer { font-size: .78rem; opacity: .55; text-align: center; }
+  a { color: #ffd166; text-decoration: none; }
+  button { background: #ffd166; border: 0; color: #17161c; font-weight: 600; padding: .5em 1.2em; border-radius: 8px; cursor: pointer; font-size: .9rem; }
+  canvas { border: 2px solid #3a3a44; border-radius: 6px; max-width: 100%; touch-action: none; }
+  
+  #q { font-size: 2.4rem; font-weight: 700; color: #fff; min-height: 1.3em; }
+  #o { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 320px; max-width: 92vw; }
+  #o button { font-size: 1.3rem; padding: .6em 0; background: #1a1f16; color: #ffd166; border: 2px solid #ffd166; }
+
+</style>
+</head>
+<body>
+<h1><span class="ic">➕</span> Math Sprint +</h1>
+<div class="hud">Score <b id="score">0</b> · <b id="time">60s</b></div><div id="q"></div><div id="o"></div>
+<footer id="ctrl"></footer>
+<a href="../archive.html">← back</a>
+<script>
+
+const OPS = ['+'], LO = 1, HI = 20, SECS = 60;
+let left = SECS, score = 0, ans;
+const q = document.getElementById('q'), opts = document.getElementById('o');
+function mk() {
+  const op = OPS[Math.random() * OPS.length | 0];
+  let a = LO + Math.random() * (HI - LO) | 0, b = LO + Math.random() * (HI - LO) | 0;
+  if (op === '−' && b > a) [a, b] = [b, a];
+  ans = op === '+' ? a + b : op === '−' ? a - b : op === '×' ? a * b : null;
+  if (op === '÷') { ans = a; a = a * b; }
+  q.textContent = a + ' ' + op + ' ' + b + ' = ?';
+  const set = new Set([ans]);
+  while (set.size < 4) {
+    let d = ans + (Math.random() * 13 - 6) | 0;
+    if (d !== ans) set.add(d);
+  }
+  [...set].sort(() => Math.random() - .5).forEach(n => {
+    const btn = document.createElement('button');
+    btn.textContent = n;
+    btn.addEventListener('click', () => {
+      if (+btn.textContent === ans) { score++; hud(); flash('#ffd166'); }
+      else { flash('#ff8a80'); }
+      mk();
+    });
+    opts.appendChild(btn);
+  });
+}
+function flash(c2) {
+  q.style.color = c2; setTimeout(() => q.style.color = '', 150);
+}
+function hud() { document.getElementById('score').textContent = score; }
+const ct = setInterval(() => {
+  left--; document.getElementById('time').textContent = left + 's';
+  if (left <= 0) {
+    clearInterval(ct);
+    document.getElementById('ctrl').innerHTML = 'Time! Score: <b>' + score + '</b> · <button onclick="location.reload()">Play again</button>';
+  }
+}, 1000);
+mk(); hud();
+document.getElementById('ctrl').textContent = 'Pick the right answer before time runs out · ' + SECS + ' seconds';
+
+</script>
+</body>
+</html>
