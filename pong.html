@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pong</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: system-ui, sans-serif; background: #101419; color: #eee; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .8em; }
+  a { color: #8ab4ff; text-decoration: none; }
+  h1 { font-size: 1.5rem; }
+  canvas { background: #181c24; border: 2px solid #3a4152; border-radius: 8px; cursor: none; }
+  footer { font-size: .8rem; opacity: .6; }
+</style>
+</head>
+<body>
+  <h1>🏓 Pong</h1>
+  <canvas id="game" width="600" height="360"></canvas>
+  <footer>Move with the mouse (or finger) · first to 5 wins</footer>
+  <a href="index.html">← back</a>
+<script>
+const c = document.getElementById('game'), x = c.getContext('2d');
+const W = 600, H = 360, PW = 10, PH = 70;
+let py, ay, ball, pScore, aScore, running, winner;
+
+function reset(serveLeft) {
+  py = H/2 - PH/2; ay = H/2 - PH/2;
+  ball = {x: W/2, y: H/2, vx: (serveLeft ? 1 : -1) * 5, vy: (Math.random() > .5 ? 1 : -1) * 3.5};
+  if (serveLeft === undefined) { pScore = 0; aScore = 0; winner = null; }
+  running = true;
+}
+
+reset();
+
+function loop() {
+  if (running && !winner) {
+    // AI paddle follows ball with capped speed
+    const target = ball.y - PH/2;
+    ay += Math.max(-4.2, Math.min(4.2, target - ay));
+    // player paddle: mouse/touch position
+    py = my - PH/2;
+    py = Math.max(0, Math.min(H - PH, py));
+
+    ball.x += ball.vx; ball.y += ball.vy;
+    if (ball.y < 7 || ball.y > H - 7) ball.vy *= -1;
+
+    // collisions
+    if (ball.vx < 0 && ball.x < 24 && ball.x > 14 && ball.y > py && ball.y < py + PH) {
+      ball.vx *= -1.05; ball.vy += (ball.y - (py + PH/2)) * 0.05;
+    }
+    if (ball.vx > 0 && ball.x > W - 24 && ball.x < W - 14 && ball.y > ay && ball.y < ay + PH) {
+      ball.vx *= -1.05; ball.vy += (ball.y - (ay + PH/2)) * 0.05;
+    }
+
+    if (ball.x < 0) { aScore++; serve(false); }
+    if (ball.x > W) { pScore++; serve(true); }
+    if (pScore >= 5 || aScore >= 5) { winner = pScore >= 5 ? 'You win! 🎉' : 'Computer wins'; }
+  }
+  draw();
+  requestAnimationFrame(loop);
+}
+
+function serve(left) {
+  ball = {x: W/2, y: H/2, vx: (left ? 1 : -1) * 5, vy: (Math.random() > .5 ? 1 : -1) * 3.5};
+}
+
+let my;
+function pos(e) {
+  const r = c.getBoundingClientRect();
+  my = (e.clientY - r.top) * (H / r.height);
+}
+c.addEventListener('pointermove', pos);
+c.addEventListener('pointerdown', pos);
+
+function draw() {
+  x.fillStyle = '#181c24'; x.fillRect(0, 0, W, H);
+  x.strokeStyle = '#2c3242'; x.setLineDash([8, 10]);
+  x.beginPath(); x.moveTo(W/2, 0); x.lineTo(W/2, H); x.stroke(); x.setLineDash([]);
+  x.fillStyle = '#e8e8e8'; x.font = 'bold 34px sans-serif'; x.textAlign = 'center';
+  x.fillText(pScore, W/2 - 60, 44);
+  x.fillText(aScore, W/2 + 60, 44);
+  x.fillStyle = '#8ab4ff'; x.fillRect(14, py, PW, PH);
+  x.fillStyle = '#ff8a80'; x.fillRect(W - 24, ay, PW, PH);
+  x.beginPath(); x.arc(ball.x, ball.y, 7, 0, 7); x.fill();
+  if (winner) {
+    x.fillStyle = 'rgba(0,0,0,.65)'; x.fillRect(0, H/2 - 55, W, 110);
+    x.fillStyle = '#fff'; x.font = 'bold 30px sans-serif';
+    x.fillText(winner, W/2, H/2 - 5);
+    x.font = '15px sans-serif'; x.fillText('tap to play again', W/2, H/2 + 25);
+  }
+}
+
+c.addEventListener('pointerdown', () => { if (winner) { pScore = 0; aScore = 0; winner = null; running = true; } });
+loop();
+</script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tic-Tac-Toe</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: system-ui, sans-serif; background: #221f2b; color: #eee; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1em; }
+  a { color: #8ab4ff; text-decoration: none; }
+  h1 { font-size: 1.5rem; }
+  #board { display: grid; grid-template-columns: repeat(3, 96px); gap: 6px; }
+  .cell {
+    width: 96px; height: 96px; background: #312c3e; border-radius: 10px;
+    font-size: 3rem; font-weight: bold; color: #fff; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background .12s;
+  }
+  .cell:hover { background: #3d3750; }
+  .cell.x { color: #8ab4ff; }
+  .cell.o { color: #ff8a80; }
+  #status { font-size: 1.1rem; min-height: 1.4em; }
+  button { background: #4b4560; color: #fff; border: 0; padding: .6em 1.4em; border-radius: 8px; font-size: .95rem; cursor: pointer; }
+  button:hover { background: #5b5476; }
+  footer { font-size: .8rem; opacity: .6; }
+</style>
+</head>
+<body>
+  <h1>⭕ Tic-Tac-Toe</h1>
+  <div id="status">You are X — make your move</div>
+  <div id="board"></div>
+  <button id="new">New game</button>
+  <footer>You vs. the computer</footer>
+  <a href="index.html">← back</a>
+<script>
+const board = document.getElementById('board'), status = document.getElementById('status');
+let grid, over;
+
+function newGame() {
+  grid = Array(9).fill(null);
+  over = false;
+  status.textContent = 'You are X — make your move';
+  render();
+}
+
+const LINES = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+function winnerOf(g) {
+  for (const [a,b,c2] of LINES) if (g[a] && g[a] === g[b] && g[a] === g[c2]) return g[a];
+  return g.every(v => v) ? 'draw' : null;
+}
+
+function minimaxScore(g, turn) { // score from X's perspective, X wants +
+  const w = winnerOf(g);
+  if (w === 'X') return 1; if (w === 'O') return -1; if (w === 'draw') return 0;
+  let best = turn === 'X' ? -2 : 2;
+  for (let i = 0; i < 9; i++) if (!g[i]) {
+    g[i] = turn;
+    const s = minimaxScore(g, turn === 'X' ? 'O' : 'X');
+    g[i] = null;
+    best = turn === 'X' ? Math.max(best, s) : Math.min(best, s);
+  }
+  return best;
+}
+
+function aiMove() {
+  let move = -1, best = 2;
+  for (let i = 0; i < 9; i++) if (!grid[i]) {
+    grid[i] = 'O';
+    const s = minimaxScore(grid, 'X');
+    grid[i] = null;
+    if (s < best) { best = s; move = i; }
+  }
+  if (move >= 0) grid[move] = 'O';
+}
+
+function check() {
+  const w = winnerOf(grid);
+  if (!w) return false;
+  over = true;
+  status.textContent = w === 'draw' ? "It's a draw!" : w === 'X' ? 'You win! 🎉' : 'Computer wins';
+  return true;
+}
+
+function render() {
+  board.innerHTML = '';
+  grid.forEach((v, i) => {
+    const d = document.createElement('div');
+    d.className = 'cell' + (v ? ' ' + v.toLowerCase() : '');
+    d.textContent = v || '';
+    d.addEventListener('click', () => {
+      if (over || grid[i]) return;
+      grid[i] = 'X';
+      if (check()) { render(); return; }
+      aiMove();
+      render();
+      check();
+    });
+    board.appendChild(d);
+  });
+}
+
+document.getElementById('new').addEventListener('click', newGame);
+newGame();
+</script>
+</body>
+</html>
