@@ -1,0 +1,27 @@
+const getElementsByTagName = document.getElementsByTagName.bind(document);
+
+export const canvas = getElementsByTagName('canvas')[0];
+export const mainMenu = getElementsByTagName('nav')[0];
+export const multiplayerMenu = getElementsByTagName('nav')[1];
+export const endMenu = getElementsByTagName('nav')[2];
+export const startBtn = getElementsByTagName('a')[0];
+export const multiplayerBtn = getElementsByTagName('a')[1];
+export const coilBtn = getElementsByTagName('a')[2];
+export const beginnerBtn = getElementsByTagName('a')[3];
+export const p2pBackBtn = getElementsByTagName('a')[4];
+export const offerBtn = getElementsByTagName('a')[5];
+export const answerBtn = getElementsByTagName('a')[6];
+export const serverlessBtn = getElementsByTagName('a')[7];
+export const startP2PBtn = getElementsByTagName('a')[8];
+export const endBackBtn = getElementsByTagName('a')[9];
+export const hitOverlay = getElementsByTagName('b')[0];
+export const crosshair = getElementsByTagName('span')[0];
+export const screenshotBtn = getElementsByTagName('p')[0];
+export const scoreText = getElementsByTagName('p')[1];
+export const health = getElementsByTagName('p')[2];
+export const coilIcon = getElementsByTagName('p')[3];
+export const attackBtn = getElementsByTagName('p')[4];
+export const joinCodeInput = getElementsByTagName('input')[0];
+export const offerInput = getElementsByTagName('input')[1];
+export const answerInput = getElementsByTagName('input')[2];
+export const multiplayerStatus = getElementsByTagName('h6')[0];

@@ -1,0 +1,703 @@
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+
+/* Reset de base */
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  background-color: #33333320;
+  background-size: cover;
+  /* Cover the entire viewport */
+  background-position: center;
+  /* Center the background */
+  background-repeat: no-repeat;
+  /* Don't repeat the gif */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-family: "Press Start 2P", cursive;
+}
+
+html {
+  background-image: url("../../images/background_forest.gif");
+}
+
+/* ----------------------- Bomb animations ------------------------ */
+.bomb {
+  background: url("../../images/bombs/baseBomb3.png");
+  background-position: 0 0;
+  background-size: 64px 64px;
+}
+
+.explosion {
+  background: url("../../images/bombs/baseBomb3.png");
+  background-size: 896px 64px;
+  animation: explode 2s steps(14) forwards;
+}
+
+@keyframes explode {
+  from {
+    background-position: 0 0;
+  }
+
+  to {
+    background-position: -896px 0;
+  }
+}
+
+/* ------------------------- Player css logic -------------------- */
+.player {
+  transition: transform 0.1s linear;
+  z-index: 1000;
+}
+
+/* ---------------------------- Sprites ------------------------- */
+/* .wall1 {
+  background-image: url("../../images/Sprite-0001.png");
+}
+
+.wall2 {
+  background-image: url("../../images/Sprite-0002.png");
+}
+
+.destructible {
+  background-image: url("../../images/Sprite-0005.png");
+} */
+
+.exploding {
+  background-image: url("../../images/tiles/Sprite-0004.png");
+}
+
+/* -----------------Game UI (Score, HP and time)----------------- */
+.game-info {
+  display: flex;
+  justify-content: space-between;
+  width: 600px;
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  font-size: 32px;
+  font-weight: bold;
+  z-index: 10;
+  text-align: center;
+}
+
+/* ------------------------ Menu principal ----------------------- */
+
+.menu-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+}
+
+.menu-background {
+  display: inline-block;
+  /* This will make it fit the content */
+  background-image: url("../../images/title_menu.png");
+  background-size: 100% 100%;
+  /* Makes the background stretch with the div */
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  position: relative;
+  padding: 20px;
+  /* Adjust as needed */
+  box-sizing: border-box;
+  min-width: 950px;
+  /* Set to your image's natural width */
+  min-height: 475px;
+  /* Ensures padding is included in width/height */
+}
+
+.menu-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 40px;
+  width: auto;
+  /* Let the content determine width */
+  height: auto;
+  /* Let the content determine height */
+}
+
+.game-title {
+  font-family: "Press Start 2P", cursive;
+  color: rgb(207, 255, 48);
+  font-size: 4vw;
+  margin-bottom: 50px;
+  text-decoration: underline;
+  text-underline-offset: 15px;
+  align-self: flex-start;
+  margin-left: 30%;
+  /* Position title 60% from left */
+}
+
+.buttons-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+  align-self: flex-start;
+  margin-left: 35%;
+  /* Position buttons 60% from left */
+  width: 225px;
+}
+
+.buttons-container button {
+  font-family: "Press Start 2P";
+  background-color: transparent;
+  border: none;
+  color: white;
+  font-size: 1.5vw;
+  text-align: left;
+  padding: 10px 0;
+  cursor: pointer;
+  position: relative;
+  width: auto;
+  transition: color 0.5s;
+  font-weight: bold;
+}
+
+.buttons-container button::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: rgb(207, 255, 48);
+  transition: width 0.3s ease;
+}
+
+.buttons-container button:hover::after {
+  width: 100%;
+}
+
+.buttons-container button:hover {
+  color: rgb(207, 255, 48);
+}
+
+.github-icon {
+  width: 20px;
+  height: 20px;
+  opacity: 0.7;
+  transition: opacity 0.3s;
+  border-radius: 50%;
+  /* Makes it circular */
+  object-fit: cover;
+  /* Ensures the image fits properly */
+  border: 5px solid white;
+  /* Adds the white border */
+}
+
+.github-icon:hover {
+  opacity: 1;
+}
+
+.github-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  /* Space between icon and text */
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  /* Adjust color as needed */
+}
+
+.github-link span {
+  white-space: nowrap;
+  /* Prevents text from breaking */
+}
+
+/* ---------------------- Menu pause ---------------------------- */
+#pause-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0s 0.3s;
+}
+
+#pause-container.visible {
+  opacity: 1;
+  display: block;
+  visibility: visible;
+  transition: opacity 0.3s ease, visibility 0s 0s;
+}
+
+#pause-container .menu-content {
+  background-color: rgba(0, 51, 102, 0.8);
+  border: 5px solid gray;
+  width: 320px;
+}
+
+#pause-container h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: white;
+}
+
+/* ---------------------- Leaderboard ----------------------- */
+.leaderboard-game-over {
+  width: 100%;
+  max-width: 450px;
+  margin: 20px auto;
+  padding: 15px;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 8px;
+  color: white;
+  font-family: "Press Start 2P", cursive;
+}
+
+/* Top Score en jaune */
+.leaderboard-game-over h3 {
+  font-size: 1.8vw;
+  text-decoration: underline;
+  color: yellow;
+  text-underline-offset: 5px;
+  text-align: center;
+}
+
+/* Tableau des scores */
+.leaderboard-scores {
+  text-align: center;
+  font-size: 1.5vw;
+}
+
+.leaderboard-panel {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  z-index: 2000; /* Assure-toi que c'est au-dessus du menu */
+  display: none;
+  width: 80%;
+  max-width: 500px;
+}
+
+.leaderboard-panel.visible {
+  display: block;
+}
+
+.hidden {
+  display: none !important;
+}
+/* ---------------------- Pagination ----------------------- */
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  font-size: 1.5vw;
+  margin-top: 8px;
+  color: white;
+}
+
+/* Previous / Next boutons plus visibles */
+.pagination button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5vw;
+  cursor: pointer;
+  text-transform: uppercase;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.pagination button::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: yellow;
+  transition: width 0.3s ease;
+}
+
+.pagination button:hover::after {
+  width: 100%;
+}
+
+.pagination button:hover {
+  color: yellow;
+}
+
+.pagination button:disabled {
+  color: gray;
+  cursor: not-allowed;
+}
+
+/* Page X of Y plus petite */
+.page-info {
+  font-size: 1.2vw;
+  font-weight: bold;
+  color: white;
+}
+
+/* ---------------------- Bouton Retour Menu Principal ----------------------- */
+#main-menu-button {
+  background: none;
+  border: 3px solid yellow;
+  color: white;
+  padding: 15px 25px;
+  font-size: 1.8vw;
+  font-weight: bold;
+  cursor: pointer;
+  width: auto;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#main-menu-button:hover {
+  background-color: yellow;
+  color: black;
+  transform: scale(1.05);
+}
+
+/* ---------------------- Barre de Nom + Submit ----------------------- */
+.name-input-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+#player-name {
+  padding: 10px;
+  font-size: 1.2vw;
+  border: 2px solid yellow;
+  border-radius: 5px;
+  background-color: rgba(255, 204, 0, 0.1);
+  color: white;
+  text-align: center;
+  font-family: "Press Start 2P", cursive;
+  width: 80%;
+  max-width: 250px;
+}
+
+/* Bouton Submit en gras et plus visible */
+#submit-name-button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5vw;
+  font-weight: bold;
+  cursor: pointer;
+  text-transform: uppercase;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+#submit-name-button::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: yellow;
+  transition: width 0.3s ease;
+}
+
+#submit-name-button:hover::after {
+  width: 100%;
+}
+
+#submit-name-button:hover {
+  color: yellow;
+}
+
+/* ---------------------- Boutons communs ----------------------- */
+button {
+  background-color: #005b99;
+  border: 3px solid gray;
+  color: white;
+  padding: 12px 20px;
+  font-size: 18px;
+  margin: 10px 0;
+  cursor: pointer;
+  width: 200px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:focus {
+  outline: none;
+}
+
+/* ---------------------- Game Over Screen ------------------------ */
+#game-over-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.85);
+  color: red;
+  font-size: 1vw;
+  font-weight: bold;
+  font-family: "Press Start 2P", cursive;
+  padding: 25px;
+  border: 3px solid black;
+  border-radius: 10px;
+  z-index: 1000;
+  display: none;
+  opacity: 0;
+  visibility: hidden;
+  text-align: center;
+  width: 90%;
+  max-width: 50%;
+  transition: opacity 0.3s ease, visibility 0s 0.3s;
+}
+
+#game-over-container.visible {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s ease, visibility 0s 0s;
+}
+
+/* "Your Score" plus petit et blanc */
+#final-score {
+  font-size: 1.5vw;
+  color: white;
+  margin-top: 10px;
+}
+
+#end-game-score {
+  font-size: 2vw;
+  color: yellow;
+  font-weight: bold;
+}
+
+/* ---------------------- Paramètres ---------------------------- */
+.settings-panel {
+  background-color: #333;
+  padding: 40px;
+  /* Augmenter le padding pour plus d'espace */
+  border-radius: 10px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  /* Augmenter la largeur */
+  max-width: 90%;
+  /* Gérer la largeur maximale pour petits écrans */
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
+  z-index: 2000;
+  opacity: 0;
+  visibility: hidden;
+  display: none;
+  /* Par défaut caché */
+  transition: opacity 0.3s ease, visibility 0s 0.3s;
+}
+
+.settings-panel.visible {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s ease, visibility 0s 0s;
+}
+
+.settings-panel h2 {
+  color: white;
+  font-size: 28px;
+  /* Augmenter la taille du titre */
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+/* Pour les contrôles de volume */
+.volume-control {
+  margin-bottom: 20px;
+  color: white;
+  font-size: 16px;
+}
+
+.volume-control label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.volume-control input[type="range"] {
+  width: 100%;
+}
+
+/* Bouton pour fermer le menu */
+.settings-panel .close-button {
+  background-color: #f44336;
+  /* Rouge */
+  color: white;
+  border: none;
+  padding: 12px;
+  width: 100%;
+  border-radius: 5px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 30px;
+}
+
+.settings-panel .close-button:hover {
+  background-color: #e53935;
+}
+
+/* ---------------------- Liens et icônes ----------------------- */
+.github-link {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.github-icon {
+  width: 64px;
+  height: 64px;
+  transition: transform 0.3s;
+}
+
+.github-icon:hover {
+  transform: scale(1.1);
+}
+
+/* ---------------------- Éléments de jeu ----------------------- */
+.tile {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.game-wrapper {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+}
+
+.game-container {
+  position: relative;
+  display: grid;
+  background-color: #f0f0f0;
+  overflow: hidden;
+  margin-top: 10%;
+}
+
+/* ---------------------- Utilitaires --------------------------- */
+.hidden {
+  display: none;
+}
+
+.visible {
+  display: block;
+}
+
+/* -----------------------Responsivity --------------------------- */
+@media (max-width: 768px) {
+  /* Pour les petits écrans */
+  .menu-container {
+    padding: 20px;
+  }
+
+  .title-container {
+    flex: 0;
+  }
+
+  .game-title {
+    font-size: 6vw;
+  }
+}
+
+#explosion-container {
+  pointer-events: none;
+  z-index: 5;
+}
+
+.explosion-animation {
+  image-rendering: pixelated;
+  /* For crisp pixel art */
+  background-repeat: no-repeat;
+}
+
+#fps-counter {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  font-size: 14px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-family: "Press Start 2P", cursive;
+}
+
+
+#storyScreen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  /* Start hidden */
+  transition: opacity 2s ease-in-out;
+  z-index: 80;
+}
+
+#storyText {
+  font-size: 20px;
+  white-space: normal;
+  /* Allow text to wrap */
+  overflow: visible;
+  /* Ensure no hidden text */
+  width: 80%;
+  /* Adjust to fit inside the screen */
+  color: white;
+  text-align: center;
+  /* Center text */
+  line-height: 1.5;
+  /* Improve readability */
+}

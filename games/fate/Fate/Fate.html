@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fate</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: black;
+        }
+
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            image-rendering: pixelated;
+        }
+    </style>
+</head>
+<body>
+    <!-- Textures -->
+    <img id="texture" src="img\textures\texture.png" style="display: none">
+    <img id="texture2" src="img\textures\texture2.png" style="display: none">
+    <img id="ice" src="img\textures\ice.png" style="display: none">
+    <img id="invis" src="img\textures\invis.png" style="display: none">
+    <img id="grass-texture" src="img\textures\grass.png" style="display: none;">
+    <img id="woods-texture" src="img\textures\woods.png" style="display: none;">
+    <img id="lava-texture" src="img\textures\lava.png" style="display: none;">
+    <img id="sand-texture" src="img\textures\sand.png" style="display: none;">
+    <img id="cloud" src="img\textures\cloud.png" style="display: none;">
+    <img id="tech-texture" src="img\textures\tech.png" style="display: none;">
+    <img id="water-texture" src="img\textures\water.png" style="display: none;">
+    <img id="fence-texture" src="img\textures\fence.png" style="display: none;">
+    <img id="sandstone-texture" src="img\textures\sandstone.png" style="display: none;">
+    <img id="cobblestone-texture" src="img\textures\cobblestone.png" style="display: none;">
+    <img id="cobblestonebrick-texture" src="img\textures\cobblestonebrick.png" style="display: none;">
+    <img id="dirt-texture" src="img\textures\dirt.png" style="display: none;">
+    <img id="cobblestonemossy-texture" src="img\textures\cobblestonemossy.png" style="display: none;">
+    <img id="cobblestonebrickmossy-texture" src="img\textures\cobblestonebrickmossy.png" style="display: none;">
+    <img id="bamboo-texture" src="img\textures\bamboo.png" style="display: none;">
+    <img id="bambooplank-texture" src="img\textures\bambooplank.png" style="display: none;">
+    <img id="magma-texture" src="img\textures\magma.png" style="display: none;">
+    <img id="volcanic-texture" src="img\textures\volcanic.png" style="display: none;">
+    <img id="star-texture" src="img\textures\star.png" style="display: none;">
+    <img id="checkerboard-texture" src="img\textures\checkerboard.png" style="display: none;">
+    <img id="door-texture" src="img\textures\door.png" style="display: none;">
+    <img id="castle-texture" src="img\textures\castle.png" style="display: none;">
+    <img id="scales-texture" src="img\textures\scales.png" style="display: none;">
+    <img id="greybrick-texture" src="img\textures\greybrick.png" style="display: none;">
+    <img id="darkgrass-texture" src="img\textures\darkgrass.png" style="display: none;">
+    <img id="woodgrain-texture" src="img\textures\woodgrain.png" style="display: none;">
+    <!-- Backgrounds -->
+    <img id="arctic" src="img\backgrounds\arctic.png" style="display: none">
+    <img id="space" src="img\backgrounds\space.png" style="display: none;">
+    <img id="egypt" src="img\backgrounds\egypt.png" style="display: none;">
+    <img id="castle" src="img\backgrounds\castle.png" style="display: none;">
+    <img id="jungle" src="img\backgrounds\jungle.png" style="display: none;">
+    <img id="savannah" src="img\backgrounds\savannah.png" style="display: none;">
+    <img id="prison" src="img\backgrounds\prison.png" style="display: none;">
+    <img id="ocean" src="img\backgrounds\ocean.png" style="display: none;">
+    <img id="forest" src="img\backgrounds\forest.png" style="display: none;">
+    <img id="heaven" src="img\backgrounds\heaven.png" style="display: none;">
+    <img id="hell" src="img\backgrounds\hell.png" style="display: none;">
+    <img id="labyrinth" src="img\backgrounds\labyrinth.png" style="display: none;">
+    <img id="armageddon" src="img\backgrounds\armageddon.png" style="display: none;">
+    <img id="grassy" src="img\backgrounds\grassy.png" style="display: none;">
+    <img id="armybase" src="img\backgrounds\armybase.png" style="display: none;">
+    <img id="deathpit" src="img\backgrounds\deathpit.png" style="display: none;">
+    <img id="ninjadojo" src="img\backgrounds\ninjadojo.png" style="display: none;">
+    <img id="jurassic" src="img\backgrounds\jurassic.png" style="display: none;">
+    <!-- Static Sprites -->
+    <img id="bones-sprite" src="img\static\bones.png" style="display: none;">
+    <img id="acid-sprite" src="img\static\acid.png" style="display: none;">
+    <img id="tombstone-sprite" src="img\static\tombstone.png" style="display: none;">
+    <img id="tree-sprite" src="img\static\tree.png" style="display: none">
+    <img id="pillar-sprite" src="img\static\pillar.png" style="display: none">
+    <img id="cauldron-sprite" src="img\static\cauldron.png" style="display: none">
+    <img id="snowytree-sprite" src="img\static\snowytree.png" style="display: none">
+    <img id="ammo-sprite" src="img\static\ammo.png" style="display: none">
+    <img id="rocketammo-sprite" src="img\static\rocketammo.png" style="display: none">
+    <img id="pistolpickup-sprite" src="img\static\pistolpickup.png" style="display: none">
+    <img id="machinegunpickup-sprite" src="img\static\machinegunpickup.png" style="display: none">
+    <img id="yetipistolpickup-sprite" src="img\static\yetipistolpickup.png" style="display: none">
+    <img id="rocketlauncherpickup-sprite" src="img\static\rocketlauncherpickup.png" style="display: none">
+    <img id="scepterpickup-sprite" src="img\static\scepterpickup.png" style="display: none">
+    <img id="portal-sprite" src="img\static\portal.png" style="display: none;">
+    <img id="lockedchest-sprite" src="img\static\lockedchest.png" style="display: none;">
+    <img id="key-sprite" src="img\static\key.png" style="display: none;">
+    <img id="speedboost-sprite" src="img\static\speedboost.png" style="display: none;">
+    <img id="kelp-sprite" src="img\static\kelp.png" style="display: none;">
+    <img id="lasershotgunpickup-sprite" src="img\static\lasershotgunpickup.png" style="display: none">
+    <img id="burningdebris-sprite" src="img\static\burningdebris.png" style="display: none;">
+    <img id="medkit-sprite" src="img\static\medkit.png" style="display: none;">
+    <img id="stasischamber-sprite" src="img\static\stasischamber.png" style="display: none;">
+    <img id="brokenstasischamber-sprite" src="img\static\brokenstasischamber.png" style="display: none;">
+    <img id="militarytent-sprite" src="img\static\militarytent.png" style="display: none;">
+    <img id="haybale-sprite" src="img\static\haybale.png" style="display: none;">
+    <img id="cherryblossom-sprite" src="img\static\cherryblossom.png" style="display: none;">
+    <img id="tridentpickup-sprite" src="img\static\tridentpickup.png" style="display: none">
+    <img id="explosion-sprite" src="img\static\explosion.png" style="display: none">
+    <img id="dinosauregg-sprite" src="img\static\dinosauregg.png" style="display: none;">
+    <img id="battery-sprite" src="img\static\battery.png" style="display: none;">
+    <img id="fern-sprite" src="img\static\fern.png" style="display: none;">
+    <img id="obelisk-sprite" src="img\static\obelisk.png" style="display: none;">
+    <img id="gib-sprite" src="img\static\gib.png" style="display: none;">
+    <img id="nest-sprite" src="img\static\nest.png" style="display: none;">
+    <img id="table-sprite" src="img\static\table.png" style="display: none;">
+    <img id="smoke-sprite" src="img\static\smoke.png" style="display: none;">
+    <img id="smoke2-sprite" src="img\static\smoke2.png" style="display: none;">
+    <img id="fire-sprite" src="img\static\fire.png" style="display: none;">
+    <img id="explosivebarrel-sprite" src="img\static\explosivebarrel.png" style="display: none;">
+    <img id="explodedbarrel-sprite" src="img\static\explodedbarrel.png" style="display: none;">
+    <img id="whirlpool-sprite" src="img\static\whirlpool.png" style="display: none;">
+    <img id="treasurepile-sprite" src="img\static\treasurepile.png" style="display: none;">
+    <img id="jungletree-sprite" src="img\static\jungletree.png" style="display: none;">
+    <img id="pinetree-sprite" src="img\static\pinetree.png" style="display: none;">
+    <img id="savannahtree-sprite" src="img\static\savannahtree.png" style="display: none;">
+    <!-- Weapon Sprites -->
+    <img id="knife-sprite" src="img\weapons\knife.png" style="display: none;">
+    <img id="gun-sprite" src="img\weapons\gun.png" style="display: none;">
+    <img id="machinegun-sprite" src="img\weapons\machinegun.png" style="display: none;">
+    <img id="yetipistol-sprite" src="img\weapons\yetipistol.png" style="display: none;">
+    <img id="rocketlauncher-sprite" src="img\weapons\rocketlauncher.png" style="display: none;">
+    <img id="scepter-sprite" src="img\weapons\scepter.png" style="display: none;">
+    <img id="boomerangwep-sprite" src="img\weapons\boomerangwep.png" style="display: none;">
+    <img id="blank-sprite" src="img\weapons\blank.png" style="display: none;">
+    <img id="lasershotgun-sprite" src="img\weapons\lasershotgun.png" style="display: none;">
+    <img id="trident-sprite" src="img\weapons\trident.png" style="display: none;">
+    <!-- Projectile Sprites -->
+    <img id="bullet-sprite" src="img\weapons\bullet.png" style="display: none;">
+    <img id="laser-sprite" src="img\weapons\laser.png" style="display: none;">
+    <img id="rocket-sprite" src="img\weapons\rocket.png" style="display: none;">
+    <img id="inboundrocket-sprite" src="img\weapons\inboundrocket.png" style="display: none;">
+    <img id="orb-sprite" src="img\weapons\orb.png" style="display: none;">
+    <img id="boomerang-sprite" src="img\weapons\boomerang.png" style="display: none;">
+    <img id="shuriken-sprite" src="img\weapons\shuriken.png" style="display: none;">
+    <img id="waterorb-sprite" src="img\weapons\waterorb.png" style="display: none;">
+    <img id="eyeballprojectile-sprite" src="img\weapons\eyeball.png" style="display: none;">
+    <img id="fireball-sprite" src="img\weapons\fireball.png" style="display: none;">
+    <img id="web-sprite" src="img\weapons\web.png" style="display: none;">
+    <img id="laserpurple-sprite" src="img\weapons\laserpurple.png" style="display: none;">
+    <img id="whirl-sprite" src="img\weapons\whirl.png" style="display: none;">
+    <img id="force-sprite" src="img\weapons\force.png" style="display: none;">
+    <img id="deathcoil-sprite" src="img\weapons\deathcoil.png" style="display: none;">
+    <img id="magic-sprite" src="img\weapons\magic.png" style="display: none;">
+    <!-- Monster Sprites -->
+    <img id="imp-sprite" src="img\monsters\imp.png" style="display: none;">
+    <img id="lion-sprite" src="img\monsters\lion.png" style="display: none;">
+    <img id="tiger-sprite" src="img\monsters\tiger.png" style="display: none;">
+    <img id="bear-sprite" src="img\monsters\bear.png" style="display: none;">
+    <img id="yeti-sprite" src="img\monsters\yeti.png" style="display: none;">
+    <img id="crusader-sprite" src="img\monsters\crusader.png" style="display: none;">
+    <img id="king-sprite" src="img\monsters\king.png" style="display: none;">
+    <img id="minotaur-sprite" src="img\monsters\minotaur.png" style="display: none;">
+    <img id="demon-sprite" src="img\monsters\demon.png" style="display: none;">
+    <img id="skeleton-sprite" src="img\monsters\skeleton.png" style="display: none;">
+    <img id="jackalope-sprite" src="img\monsters\jackalope.png" style="display: none;">
+    <img id="alien1-sprite" src="img\monsters\alien1.png" style="display: none;">
+    <img id="alien2-sprite" src="img\monsters\alien2.png" style="display: none;">
+    <img id="cheetah-sprite" src="img\monsters\cheetah.png" style="display: none;">
+    <img id="rhino-sprite" src="img\monsters\rhino.png" style="display: none;">
+    <img id="wolf-sprite" src="img\monsters\wolf.png" style="display: none;">
+    <img id="ufo-sprite" src="img\monsters\ufo.png" style="display: none;">
+    <img id="robot-sprite" src="img\monsters\robot.png" style="display: none;">
+    <img id="ninja1-sprite" src="img\monsters\ninja1.png" style="display: none;">
+    <img id="ninja2-sprite" src="img\monsters\ninja2.png" style="display: none;">
+    <img id="soldier-sprite" src="img\monsters\soldier.png" style="display: none;">
+    <img id="apache-sprite" src="img\monsters\apache.png" style="display: none;">
+    <img id="fighterjet-sprite" src="img\monsters\fighterjet.png" style="display: none;">
+    <img id="tank-sprite" src="img\monsters\tank.png" style="display: none;">
+    <img id="piranha-sprite" src="img\monsters\piranha.png" style="display: none;">
+    <img id="shark-sprite" src="img\monsters\shark.png" style="display: none;">
+    <img id="squid-sprite" src="img\monsters\squid.png" style="display: none;">
+    <img id="cow-sprite" src="img\monsters\cow.png" style="display: none;">
+    <img id="cowking-sprite" src="img\monsters\cowking.png" style="display: none;">
+    <img id="zeus-sprite" src="img\monsters\zeus.png" style="display: none;">
+    <img id="witchdoctor-sprite" src="img\monsters\witchdoctor.png" style="display: none;">
+    <img id="eyeball-sprite" src="img\monsters\eyeball.png" style="display: none;">
+    <img id="spider-sprite" src="img\monsters\spider.png" style="display: none;">
+    <img id="moby-sprite" src="img\monsters\moby.png" style="display: none;">
+    <img id="seahorse-sprite" src="img\monsters\seahorse.png" style="display: none;">
+    <img id="seahorsebaby-sprite" src="img\monsters\seahorsebaby.png" style="display: none;">
+    <img id="hyena-sprite" src="img\monsters\hyena.png" style="display: none;">
+    <img id="werewolf-sprite" src="img\monsters\werewolf.png" style="display: none;">
+    <img id="astronaut-sprite" src="img\monsters\astronaut.png" style="display: none;">
+    <img id="rover-sprite" src="img\monsters\rover.png" style="display: none;">
+    <img id="turret-sprite" src="img\monsters\turret.png" style="display: none;">
+    <img id="lander-sprite" src="img\monsters\lander.png" style="display: none;">
+    <img id="lizard-sprite" src="img\monsters\lizard.png" style="display: none;">
+    <img id="raptor-sprite" src="img\monsters\raptor.png" style="display: none;">
+    <img id="brontosaurus-sprite" src="img\monsters\brontosaurus.png" style="display: none;">
+    <img id="stegosaurus-sprite" src="img\monsters\stegosaurus.png" style="display: none;">
+    <img id="scarab-sprite" src="img\monsters\scarab.png" style="display: none;">
+    <img id="scarabburrowed-sprite" src="img\monsters\scarabburrowed.png" style="display: none;">
+    <img id="sphinx-sprite" src="img\monsters\sphinx.png" style="display: none;">
+    <img id="anubis-sprite" src="img\monsters\anubis.png" style="display: none;">
+    <img id="mummy-sprite" src="img\monsters\mummy.png" style="display: none;">
+    <img id="moon-sprite" src="img\monsters\moon.png" style="display: none;">
+    <img id="sun-sprite" src="img\monsters\sun.png" style="display: none;">
+    <img id="saturn-sprite" src="img\monsters\saturn.png" style="display: none;">
+    <img id="tutankhamun-sprite" src="img\monsters\tutankhamun.png" style="display: none;">
+    <img id="satyr-sprite" src="img\monsters\satyr.png" style="display: none;">
+    <img id="frog-sprite" src="img\monsters\frog.png" style="display: none;">
+    <img id="enemyportal-sprite" src="img\monsters\portal.png" style="display: none;">
+    <img id="kamikaze-sprite" src="img\monsters\kamikaze.png" style="display: none;">
+    <img id="pterodactyl-sprite" src="img\monsters\pterodactyl.png" style="display: none;">
+    <img id="baphomet-sprite" src="img\monsters\baphomet.png" style="display: none;">
+    <img id="asteroid-sprite" src="img\monsters\asteroid.png" style="display: none;">
+    <img id="prisoner-sprite" src="img\monsters\prisoner.png" style="display: none;">
+    <img id="guard1-sprite" src="img\monsters\guard1.png" style="display: none;">
+    <img id="guard2-sprite" src="img\monsters\guard2.png" style="display: none;">
+    <img id="sobek-sprite" src="img\monsters\sobek.png" style="display: none;">
+    <img id="crocodile-sprite" src="img\monsters\crocodile.png" style="display: none;">
+    <img id="bat-sprite" src="img\monsters\bat.png" style="display: none;">
+    <img id="wizard-sprite" src="img\monsters\wizard.png" style="display: none;">
+    <img id="hydra-sprite" src="img\monsters\hydra.png" style="display: none;">
+    <!-- Environment Sounds -->
+    <audio id="pickup-sound" src="audio\environment\pickup.mp3" preload="auto"></audio>
+    <audio id="injured-sound" src="audio\environment\injured.mp3" preload="auto"></audio>
+    <audio id="death-sound" src="audio\environment\death.mp3" preload="auto"></audio>
+    <audio id="portal-sound" src="audio\environment\portal.mp3" preload="auto"></audio>
+    <audio id="secretunlock-sound" src="audio\environment\secretunlock.mp3" preload="auto"></audio>
+    <audio id="locked-sound" src="audio\environment\locked.mp3" preload="auto"></audio>
+    <audio id="squish-sound" src="audio\environment\squish.mp3" preload="auto"></audio>
+    <audio id="invalid-sound" src="audio\environment\invalid.mp3" preload="auto"></audio>
+    <audio id="glass-sound" src="audio\environment\glass.mp3" preload="auto"></audio>
+    <audio id="splash-sound" src="audio\environment\splash.mp3" preload="auto"></audio>
+    <audio id="forcefield-sound" src="audio\environment\forcefield.mp3" preload="auto"></audio>
+    <audio id="ricochet-sound" src="audio\environment\ricochet.mp3" preload="auto"></audio>
+    <audio id="raiseskeleton-sound" src="audio\environment\raiseskeleton.mp3" preload="auto"></audio>
+    <audio id="celldoor-sound" src="audio\environment\celldoor.mp3" preload="auto"></audio>
+    <audio id="thrust-sound" src="audio\environment\thrust.mp3" preload="auto"></audio>
+    <!-- Weapon Sounds -->
+    <audio id="shoot-sound" src="audio\weapon\shoot.mp3" preload="auto"></audio>
+    <audio id="laser-sound" src="audio\weapon\laser.mp3" preload="auto"></audio>
+    <audio id="orb-sound" src="audio\weapon\orb.mp3" preload="auto"></audio>
+    <audio id="rocketlaunch-sound" src="audio\weapon\rocketlaunch.mp3" preload="auto"></audio>
+    <audio id="explosion-sound" src="audio\weapon\explosion.mp3" preload="auto"></audio>
+    <audio id="knife-sound" src="audio\weapon\knife.mp3" preload="auto"></audio>
+    <audio id="gunclick-sound" src="audio\weapon\gunclick.mp3" preload="auto"></audio>
+    <audio id="boomerang-sound" src="audio\weapon\boomerang.mp3" preload="auto"></audio>
+    <audio id="shuriken-sound" src="audio\weapon\shuriken.mp3" preload="auto"></audio>
+    <audio id="waterorb-sound" src="audio\weapon\waterorb.mp3" preload="auto"></audio>
+    <audio id="laserblast-sound" src="audio\weapon\laserblast.mp3" preload="auto"></audio>
+    <audio id="fireball-sound" src="audio\weapon\fireball.mp3" preload="auto"></audio>
+    <audio id="web-sound" src="audio\weapon\web.mp3" preload="auto"></audio>
+    <audio id="overheat-sound" src="audio\weapon\overheat.mp3" preload="auto"></audio>
+    <audio id="deathcoil-sound" src="audio\weapon\deathcoil.mp3" preload="auto"></audio>
+    <audio id="magic-sound" src="audio\weapon\magic.mp3" preload="auto"></audio>
+    <!-- Monster Sounds -->
+    <audio id="imp-pain-1" src="audio\monster\imp-pain-1.mp3" preload="auto"></audio>
+    <audio id="imp-pain-2" src="audio\monster\imp-pain-2.mp3" preload="auto"></audio>
+    <audio id="imp-pain-3" src="audio\monster\imp-pain-3.mp3" preload="auto"></audio>
+    <audio id="imp-death" src="audio\monster\imp-death.mp3" preload="auto"></audio>
+    <audio id="bigcat-pain-1" src="audio\monster\bigcat-pain-1.mp3" preload="auto"></audio>
+    <audio id="bigcat-pain-2" src="audio\monster\bigcat-pain-2.mp3" preload="auto"></audio>
+    <audio id="bigcat-pain-3" src="audio\monster\bigcat-pain-3.mp3" preload="auto"></audio>
+    <audio id="bigcat-death" src="audio\monster\bigcat-death.mp3" preload="auto"></audio>
+    <audio id="bear-pain-1" src="audio\monster\bear-pain-1.mp3" preload="auto"></audio>
+    <audio id="bear-pain-2" src="audio\monster\bear-pain-2.mp3" preload="auto"></audio>
+    <audio id="bear-pain-3" src="audio\monster\bear-pain-3.mp3" preload="auto"></audio>
+    <audio id="bear-death" src="audio\monster\bear-death.mp3" preload="auto"></audio>
+    <audio id="crusader-pain-1" src="audio\monster\crusader-pain-1.mp3" preload="auto"></audio>
+    <audio id="crusader-pain-2" src="audio\monster\crusader-pain-2.mp3" preload="auto"></audio>
+    <audio id="crusader-pain-3" src="audio\monster\crusader-pain-3.mp3" preload="auto"></audio>
+    <audio id="crusader-death" src="audio\monster\crusader-death.mp3" preload="auto"></audio>
+    <audio id="minotaur-pain-1" src="audio\monster\minotaur-pain-1.mp3" preload="auto"></audio>
+    <audio id="minotaur-pain-2" src="audio\monster\minotaur-pain-2.mp3" preload="auto"></audio>
+    <audio id="minotaur-pain-3" src="audio\monster\minotaur-pain-3.mp3" preload="auto"></audio>
+    <audio id="minotaur-death" src="audio\monster\minotaur-death.mp3" preload="auto"></audio>
+    <audio id="skeleton-pain-1" src="audio\monster\skeleton-pain-1.mp3" preload="auto"></audio>
+    <audio id="skeleton-pain-2" src="audio\monster\skeleton-pain-2.mp3" preload="auto"></audio>
+    <audio id="skeleton-pain-3" src="audio\monster\skeleton-pain-3.mp3" preload="auto"></audio>
+    <audio id="skeleton-death" src="audio\monster\skeleton-death.mp3" preload="auto"></audio>
+    <audio id="demon-pain-1" src="audio\monster\demon-pain-1.mp3" preload="auto"></audio>
+    <audio id="demon-pain-2" src="audio\monster\demon-pain-2.mp3" preload="auto"></audio>
+    <audio id="demon-pain-3" src="audio\monster\demon-pain-3.mp3" preload="auto"></audio>
+    <audio id="demon-death" src="audio\monster\demon-death.mp3" preload="auto"></audio>
+    <audio id="cow-pain-1" src="audio\monster\cow-pain-1.mp3" preload="auto"></audio>
+    <audio id="cow-pain-2" src="audio\monster\cow-pain-2.mp3" preload="auto"></audio>
+    <audio id="cow-pain-3" src="audio\monster\cow-pain-3.mp3" preload="auto"></audio>
+    <audio id="cow-death" src="audio\monster\cow-death.mp3" preload="auto"></audio>
+    <audio id="yeti-laugh" src="audio\monster\yetilaugh.mp3" preload="auto"></audio>
+    <audio id="jackalope-death" src="audio\monster\jackalope-death.mp3" preload="auto"></audio>
+    <audio id="ninja-pain-1" src="audio\monster\ninja-pain-1.mp3" preload="auto"></audio>
+    <audio id="ninja-pain-2" src="audio\monster\ninja-pain-2.mp3" preload="auto"></audio>
+    <audio id="ninja-pain-3" src="audio\monster\ninja-pain-3.mp3" preload="auto"></audio>
+    <audio id="ninja-death" src="audio\monster\ninja-death.mp3" preload="auto"></audio>
+    <audio id="moby-death" src="audio\monster\moby-death.mp3" preload="auto"></audio>
+    <audio id="kamikaze-aaaa" src="audio\monster\kamikaze-aaaa.mp3" preload="auto"></audio>
+    <audio id="guard-1" src="audio\monster\guard1.mp3" preload="auto"></audio>
+    <audio id="guard-2" src="audio\monster\guard2.mp3" preload="auto"></audio>
+    <audio id="guard-3" src="audio\monster\guard3.mp3" preload="auto"></audio>
+    <audio id="prisoner-friendly-1" src="audio\monster\prisonerfriendly1.mp3" preload="auto"></audio>
+    <audio id="prisoner-friendly-2" src="audio\monster\prisonerfriendly2.mp3" preload="auto"></audio>
+    <audio id="prisoner-hostile-1" src="audio\monster\prisonerhostile1.mp3" preload="auto"></audio>
+    <audio id="prisoner-hostile-2" src="audio\monster\prisonerhostile2.mp3" preload="auto"></audio>
+    <audio id="hydra-scream" src="audio\monster\hydra-scream.mp3" preload="auto"></audio>
+</body>
+<script src="Monsters.js"></script>
+<script src="Levels.js"></script>
+<script src="GameEngine.js"></script>
+</html>

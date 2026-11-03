@@ -1,0 +1,62 @@
+{
+  "Doom1/E1M1@3": {
+    "sha": "1fc28f4a7bd4da692a20512873d1dc9d6612443812dbfe1e6796a465c47a9e04",
+    "saveSha": "21015612be79434361860bd5673cde5997b7f8af1abff3d02dbc7e3838271236",
+    "frames": 1200,
+    "events": 115,
+    "dead": false,
+    "energy": 84.20723811538952,
+    "weapon": "chainsaw",
+    "kills": 0,
+    "items": 3,
+    "exits": 0
+  },
+  "Doom2/MAP01@3": {
+    "sha": "71cb1648e06c6c255c661b23bb99f8e48b5265ceab66029089b022fee2e6dc3d",
+    "saveSha": "a5184c3711416dc6c2178b7c57d67508b78e5619412d6f956b8abb10597528e2",
+    "frames": 1200,
+    "events": 198,
+    "dead": false,
+    "energy": 86.5,
+    "weapon": "chainsaw",
+    "kills": 3,
+    "items": 0,
+    "exits": 0
+  },
+  "freedoom1/E1M1@3": {
+    "sha": "a194f18a8810cd913c2826b7d9331dd990f9b8e3268bd43555a4a64998ccc9ef",
+    "saveSha": "8264f75d2d6530ae4878311e205f31ceca1eaa45bc39b797ebaab831645d48fc",
+    "frames": 1200,
+    "events": 129,
+    "dead": false,
+    "energy": 44.833144773724825,
+    "weapon": "chainsaw",
+    "kills": 2,
+    "items": 3,
+    "exits": 0
+  },
+  "heretic/E1M1@3": {
+    "sha": "8198b87fbf83233e81e972f2b2e1dec6d1c163dca4ac531423de4548c8043883",
+    "saveSha": "272b476add6a07dc1b1038c0de7bf01f1cd229b384009b98d46392675d19166c",
+    "frames": 1200,
+    "events": 126,
+    "dead": false,
+    "energy": 84,
+    "weapon": "gauntlets",
+    "kills": 0,
+    "items": 0,
+    "exits": 0
+  },
+  "heretic/E1M3@3": {
+    "sha": "56eae399a20e3f1b3aa5ceb6ef38722d38aafd8c60b13c4072fce99e8ee7c8bb",
+    "saveSha": "3adde0c939ead3950e1a71027ef75a4f2c045d83c555511b20d85a51d11aca18",
+    "frames": 1200,
+    "events": 141,
+    "dead": false,
+    "energy": 100,
+    "weapon": "gauntlets",
+    "kills": 0,
+    "items": 0,
+    "exits": 0
+  }
+}

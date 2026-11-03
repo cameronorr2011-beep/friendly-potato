@@ -1,0 +1,109 @@
+# NEON MAYHEM
+
+**Costa Rosa, 1986.** A neon open world you play in your browser. Steal a ride, outrun the heat, take a job, buy a condo with the takings. Or just cruise the beachfront at night with the radio on.
+
+https://github.com/user-attachments/assets/a386063c-cbb4-454b-8afe-7aab7861db72
+
+<p align="center">
+  <b><a href="https://pranshuparmar.github.io/neon-mayhem/">▶ PLAY NOW — free, in your browser</a></b><br>
+  <sub>No install, no account, no ads · keyboard, controller or touch · saves in your browser</sub>
+</p>
+
+A free, fan-made tribute inspired by Grand Theft Auto: Vice City (2002). Everything in the project is original work (only the cheat words are borrowed, as a nod) — and the sentence you just read is the only place the original game is named.
+
+## What you can do
+
+- 🚗 **Drive anything** — sports cars, bikes, a limo, an ice-cream truck, a monster truck, a tank. Drift, crash, catch fire.
+- 🚁 **Fly and sail** — a helicopter, a plane that loops and rolls, parachutes, speedboats and a jet ski. Or swim off the beach.
+- 🚓 **Outrun the law** — six stars of heat: roadblocks, spike strips, harbour launches, a helicopter, and at six, the army. Break their line of sight to lose them.
+- 💼 **Take the work** — street races, couriers, rampages, takedowns, taxi and ambulance shifts, Lola's story jobs, and favours for strangers.
+- 🏝️ **Two islands** — the neon mainland, and Isla Verde across the channel once you've earned the bridges.
+- 🏠 **Walk in** — every shop, a casino with horse racing, a glass car showroom, and homes you can buy.
+- 🔍 **Hunt** — 35 stunt jumps and 30 lost mixtapes hidden around both islands.
+- 📻 **Turn up the radio** — three synth stations and a fourth to find, every note made live in your browser.
+- 📟 **Ask Lola** — she can show you around on day one, tips you off the first time you meet anything, and `L` asks her what to do next.
+- 📷 **Take pictures** — an old film camera that prints the city like it's 1986.
+
+Want the details? **[Read the full tour →](docs/FEATURES.md)**
+
+## Screenshots
+
+<table>
+  <tr>
+    <td width="33%"><img src="media/shots/centro-alto.jpg" alt="Centro Alto's towers lit up at dusk" width="100%"><br><sub>Centro Alto at dusk</sub></td>
+    <td width="33%"><img src="media/shots/chase.jpg" alt="Two police cruisers and a helicopter searchlight chasing a car at night" width="100%"><br><sub>A four-star chase</sub></td>
+    <td width="33%"><img src="media/shots/casino.jpg" alt="The Lucky Gull casino on its pier at night" width="100%"><br><sub>The Lucky Gull</sub></td>
+  </tr>
+  <tr>
+    <td width="33%"><img src="media/shots/showroom.jpg" alt="Inside the Gran Rosa Motors showroom, vehicles on turntables behind the glass front" width="100%"><br><sub>Gran Rosa Motors</sub></td>
+    <td width="33%"><img src="media/shots/speedboat.jpg" alt="A speedboat heading for the beach and the ferris wheel pier" width="100%"><br><sub>Off the east pier</sub></td>
+    <td width="33%"><img src="media/shots/isla-verde.jpg" alt="Isla Verde's hills, towns and observatory" width="100%"><br><sub>Isla Verde</sub></td>
+  </tr>
+</table>
+
+## What's new
+
+- 🚐 **The security van** — SECURITY down its sides and an amber light on the roof: knock it about till the back doors give, or take it off the guard, shake the law, and drive it into Lola's lock-up.
+- 🏎 **MINI MAYHEM RACE** — toy buggies, two laps round the pitch at Memorial Stadium.
+- 🏗 **Import/export** — two lists of wanted cars for the crane on the docks, paid by condition, with a bonus for each full list.
+- 📻 **Radio with personality** — a frequency, a jingle and a DJ for every station, with talk and 1986 ads between the songs.
+- 🔧 **Damage you can see** — bumpers that come off, bonnets that spring, tyres that burst and spark.
+- 🏛 **Landmarks** — the Neon Tide on the strip, a stadium, a film lot and Rico's villa in the hills.
+- 🕹 **Cheats** — PANZER, ASPIRINE, the weapon sets and the rest of the classic codes, picked from a list (`` ` ``, the joystick button by the radar on a touchscreen, or the pause screen) or entered as button combos on a controller.
+- 🪖 **Six stars** — the army, its soldiers and a tank you can take; and cruisers that ram, PIT and box you in.
+- 💵 **Store robberies** — a gun on the clerk empties the till while you keep it there, and the law is waiting outside.
+- 🔪 **The arsenal** — bat, knife, katana, chainsaw, grenades, Molotovs, a scoped sniper rifle and a rocket launcher, and a weapon wheel to pick them from.
+- 🟣 **Gangs and turf** — Rico's crew in plum and black against Lola's people in pink, each on their own streets, drawing on sight once Rico has a price on you, and turf that changes hands as the story goes.
+- 🎭 **Story jobs in acts** — a won race brings sore losers or the law, a rampage the crew behind it, the collector's bag goes back to the lock-up, and HIGH TIDE ends with Rico's stand on the marina.
+- 🎬 **Talking heads** — Lola's jobs open on a cut to her lock-up: letterbox, the two of you face to face, subtitles with a face drawn in code and a babble voice for everyone. Rico gets his own cut to the marina before the end.
+- 🏪 **Businesses that pay** — buy the barber, THREADS, a hardware store, the bar in the Lucky Gull, or VERDE CABS on Isla Verde (an open garage with a Tiger Cab for its owner, earning more with every fare you drive); the till fills every day for you to come and empty — and a hold-up there runs with it.
+- 💰 **The big score** — once the bridges open, Lola wants the Savings & Loan: case it with your camera, fetch Benny "the Ear" from the marina, get a getaway car resprayed, then keep the floor while he works the vault.
+- 🗞️ **A city with its own business** — getaway chases, hold-ups, an armoured van and racers at the lights; a dozen strangers with a favour each, on both islands; and the morning paper when you make the news.
+- 🌊 **Life on the water** — swim, take a speedboat or your own jet ski from the northern pier, run the BAY REGATTA and CONTRABAND jobs, and meet the harbour patrol's launches when you're wanted at sea.
+- 🎓 **Lola's first day** — a new game can be shown around: a ride, a first delivery, then a new look at the barber with the pay.
+- 🚓 **A city that answers** — drivers who flee or fire back, manhunts you can escape, rain and a live clock.
+- 🛗 **More to find** — a glass lift up the helipad tower, takedowns, ten Isla Verde jumps and thirty lost tapes.
+- 🔉 **A city you can hear** — traffic going by, people about, your own footsteps, the surf and the gulls, kept quiet.
+
+## Controls
+
+The basics. Keys can be rebound from **CONTROLS** on the pause screen.
+
+| | Keyboard & mouse | Controller | Touch |
+|---|---|---|---|
+| Move · look | `W A S D` · mouse | left stick · right stick | stick · drag the right side |
+| Sprint · jump | `Shift` · `Space` | B · A | RUN · JUMP |
+| Aim · fire | RMB · LMB | LT · RT | AIM · FIRE |
+| Get in · get out | `F` | Y | ENTER · EXIT |
+| Drive · handbrake | `W A S D` · `Space` | RT / LT and left stick · A | GAS / BRAKE and stick · ⇋ |
+| Horn | `G` | R3 | 📢 |
+| Map · pause | `P` · `Esc` | BACK · START | tap the radar · ❚❚ |
+| Ask Lola | `L` | START → 📟 ASK LOLA | 📟 · ❚❚ → 📟 ASK LOLA |
+
+Flying, boats, menus and everything else: **[all controls →](docs/CONTROLS.md)**
+
+## Run it locally
+
+Serve the folder from any static host (GitHub Pages works as-is):
+
+```
+python3 -m http.server 8000
+# open http://localhost:8000
+```
+
+Run locally (or from `file://`), the game makes no network requests at all. The published site loads GoatCounter's counter and sends anonymous counts — see [Analytics](#analytics).
+
+## Tech
+
+- Plain JavaScript and [three.js](https://threejs.org/) r128 (MIT, see [THREE.LICENSE](THREE.LICENSE)), vendored at `js/lib/three.min.js`. No build step; it runs from `file://` or any static host.
+- All music and sound are synthesized at runtime with the Web Audio API.
+- Every change ships only after headless verification: `test/smoke.js` and `test/regressions.js` run in CI on every push.
+- More in [Under the hood](docs/FEATURES.md#under-the-hood).
+
+## Analytics
+
+The published site counts visits and anonymous in-game events (about seventy kinds, each sent at most once a visit) — things like a session started, a mission or shift finished, a stunt jump found, a wanted level reached, aircraft flown, the bridges opened, a shop purchase made, a result card saved or shared — via [GoatCounter](https://www.goatcounter.com/): cookieless, no identifier stored in the browser, and nothing about you kept. `js/analytics.js` is a thin wrapper that silently no-ops when the counter is blocked or unavailable, so the game never depends on it. Plays on a game portal that embeds the live site in a frame are counted too, with the portal as the referrer. It is skipped entirely on `file://`, `localhost` and LAN addresses — a local or offline copy makes no network request at all.
+
+## Disclaimer
+
+Fan-made tribute. Not affiliated with Rockstar Games or Take-Two Interactive. No original game assets used. All city names, brands, characters, and music in this project are invented; audio is synthesized at runtime.

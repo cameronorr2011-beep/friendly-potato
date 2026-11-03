@@ -1,0 +1,67 @@
+{
+  "name": "js13k2021",
+  "private": true,
+  "version": "1.0.0",
+  "description": "_INVADERS - JS13KGames 2021 Submission",
+  "author": "Andy K.S. Wong",
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": {
+    "prebuild": "npm run tsc",
+    "build": "npm run webpack && npm run build:server",
+    "postbuild": "npm run zip",
+    "tsc": "tsc --noEmit",
+    "zip": "node zip.mjs",
+    "build:server": "terser server.js -c -m -o public/server.js",
+    "webpack": "webpack",
+    "webpack:watch": "cross-env NODE_ENV=development webpack --watch",
+    "webpack:serve": "cross-env NODE_ENV=development webpack serve",
+    "start": "node index.js",
+    "start:dev": "nodemon",
+    "heroku-postbuild": "echo Skipping build step for Heroku deployments"
+  },
+  "dependencies": {
+    "archiver": "^5.3.0",
+    "body-parser": "^1.19.0",
+    "chalk": "^1.1.3",
+    "express": "^4.17.1",
+    "express-session": "^1.17.2",
+    "mysql2": "^2.3.0",
+    "nodemon": "^2.0.12",
+    "pg": "^8.7.1",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.6.5",
+    "socket.io": "^4.2.0",
+    "sqlite3": "^5.0.2"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.15.0",
+    "@babel/preset-typescript": "^7.15.0",
+    "7zip-bin": "^5.1.1",
+    "advzip-bin": "^2.0.0",
+    "babel-loader": "^8.2.2",
+    "cross-env": "^7.0.3",
+    "dotenv-webpack": "^7.0.3",
+    "html-inline-script-webpack-plugin": "^2.0.2",
+    "html-webpack-plugin": "^5.3.2",
+    "mugl": "https://github.com/andykswong/mugl/tarball/3b751d5023e41191eb13ca82d183840184cd7c05",
+    "munum": "https://github.com/andykswong/munum/tarball/fadb9a5a154232f84d534fc8be21dfa24c9dad25",
+    "ngrok": "^4.1.0",
+    "node-7z": "^3.0.0",
+    "qrcode-terminal": "^0.12.0",
+    "rimraf": "^2.7.1",
+    "socket.io-client": "^4.2.0",
+    "source-map-loader": "^3.0.0",
+    "terser": "^5.7.2",
+    "typescript": "^4.4.2",
+    "webpack": "^5.50.0",
+    "webpack-cli": "^4.7.2",
+    "webpack-dev-server": "^3.11.2"
+  },
+  "engines": {
+    "node": "16.x"
+  },
+  "nodemonConfig": {
+    "ext": "js,mjs,ts,json,css,scss,sass,html,pug"
+  }
+}

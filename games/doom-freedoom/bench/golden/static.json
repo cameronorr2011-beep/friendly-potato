@@ -1,0 +1,30 @@
+{
+  "translations/catalog": {
+    "keys": 306,
+    "languages": [
+      "en",
+      "es",
+      "fr",
+      "it"
+    ],
+    "missing": [],
+    "placeholders": [],
+    "duplicates": []
+  },
+  "translations/usage": {
+    "codes": 207,
+    "unresolved": [],
+    "orphans": []
+  },
+  "bootstrap/js": {
+    "versionValid": true,
+    "declared": 366,
+    "missing": [],
+    "duplicates": [],
+    "undeclared": []
+  },
+  "bootstrap/webapp": {
+    "files": 65,
+    "undeclared": []
+  }
+}
