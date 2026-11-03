@@ -3,164 +3,49 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Archive</title>
+<meta name="robots" content="noindex">
+<title>friendly potato</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    font-family: system-ui, sans-serif;
-    background: linear-gradient(160deg, #3b2f2f, #5c4742);
-    color: #f0e6d2;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-  }
-  h1 { font-size: 2.2rem; margin-bottom: .3em; }
-  p.sub { opacity: .75; margin-bottom: 2em; }
-  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1.2em; max-width: 640px; width: 90%; }
-  a.card {
-    display: block;
-    background: #6b544d;
-    border-radius: 14px;
-    padding: 2em 1em;
-    text-decoration: none;
-    color: #fff;
-    font-size: 1.15rem;
-    transition: transform .15s ease, background .15s ease;
-  }
-  a.card:hover { transform: translateY(-4px); background: #7d645b; }
-  a.card .icon { font-size: 2rem; display: block; margin-bottom: .4em; }
+  body { font-family: Georgia, 'Times New Roman', serif; background: #faf8f4; color: #2b2a26; line-height: 1.65; }
+  header { background: #6d1919; color: #f5ecd7; padding: 2.2rem 1.5rem 1.6rem; }
+  .wrap { max-width: 1000px; margin: 0 auto; }
+  h1 { font-size: 1.7rem; font-weight: normal; letter-spacing: .01em; }
+  header p { opacity: .85; font-style: italic; margin-top: .3rem; font-size: .95rem; }
+  main { padding: 2rem 1.5rem 4rem; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
+  .grid a { display: block; border-radius: 10px; overflow: hidden; border: 1px solid #d9d2c3; background: #fff; transition: transform .12s ease, box-shadow .12s ease; }
+  .grid a:hover { transform: translateY(-3px); box-shadow: 0 6px 18px rgba(43,42,38,.15); }
+  .grid img { display: block; width: 100%; height: auto; }
+  footer { text-align: center; font-size: .8rem; color: #97917f; padding-bottom: 3rem; max-width: 1000px; margin: 0 auto; }
+  footer a { color: #97917f; }
 </style>
 </head>
 <body>
-  <h1>🥔 The Potato Arcade</h1>
-  
+<header>
+  <div class="wrap">
+    <h1>🥔 friendly potato</h1>
+    <p>nice stuff, no homework required</p>
   </div>
-<p class="sub">104 real games from open-source mirrors — pick one</p>
-<h2>Ball Sports <small>(4)</small></h2>
-<div class="grid">
-<a class="card" href="games/air-hockey.html"><span class="icon">▶</span>极光冰球：十二席杯赛</a>
-<a class="card" href="games/ball-arena.html"><span class="icon">▶</span>星团大作战</a>
-<a class="card" href="games/orbital-pinball.html"><span class="icon">▶</span>轨道弹球：三界巡回</a>
-<a class="card" href="games/pocket-golf.html"><span class="icon">▶</span>口袋高尔夫：三地巡回</a>
-</div>
-
-<h2>Card &amp; Casino <small>(2)</small></h2>
-<div class="grid">
-<a class="card" href="games/blackjack-table.html"><span class="icon">▶</span>霓虹二十一点</a>
-<a class="card" href="games/dice-delver.html"><span class="icon">▶</span>骰域远征：命运岔路</a>
-</div>
-
-<h2>Everything Else <small>(87)</small></h2>
-<div class="grid">
-<a class="card" href="games/abyss-sonar.html"><span class="icon">▶</span>深渊声呐：静默航线</a>
-<a class="card" href="games/air-traffic-control.html"><span class="icon">▶</span>塔台指挥官：三港联调</a>
-<a class="card" href="games/alchemy-workshop.html"><span class="icon">▶</span>万象炼金室：十二份成分委托</a>
-<a class="card" href="games/auction-fever.html"><span class="icon">▶</span>拍卖风云：三席竞局</a>
-<a class="card" href="games/backpack-arena.html"><span class="icon">▶</span>背包角斗场：百炼赛季</a>
-<a class="card" href="games/basin-control.html"><span class="icon">▶</span>流域调度：十二场洪峰演算</a>
-<a class="card" href="games/battery-cycle.html"><span class="icon">▶</span>电池实验室：十二组循环合同</a>
-<a class="card" href="games/beat-bento.html"><span class="icon">▶</span>节拍饭团：夜市巡演</a>
-<a class="card" href="games/block-forge.html"><span class="icon">▶</span>方块熔炉：十二张锻造蓝图</a>
-<a class="card" href="games/bomb-grid.html"><span class="icon">▶</span>爆格特攻：连锁战役</a>
-<a class="card" href="games/branching-tales.html"><span class="icon">▶</span>群星来信：十二夜回声航程</a>
-<a class="card" href="games/bytebot-lab.html"><span class="icon">▶</span>字节机器人：指令远征</a>
-<a class="card" href="games/chalk-billiards.html"><span class="icon">▶</span>粉笔台球：九桌杆法赛</a>
-<a class="card" href="games/charm-reels.html"><span class="icon">▶</span>幸运符文机：百夜契约</a>
-<a class="card" href="games/checkpoint-inspector.html"><span class="icon">▶</span>边境值勤：审查档案</a>
-<a class="card" href="games/chromatic-press.html"><span class="icon">▶</span>叠色印局：十二张套印委托</a>
-<a class="card" href="games/chromatography-lab.html"><span class="icon">▶</span>色谱实验室：十二份混合物分离</a>
-<a class="card" href="games/cipher-relay.html"><span class="icon">▶</span>噪声译码：十二信道</a>
-<a class="card" href="games/claw-carnival.html"><span class="icon">▶</span>万象爪局：十二柜收藏委托</a>
-<a class="card" href="games/clean-slate.html"><span class="icon">▶</span>焕新清洁队：十二材质委托</a>
-<a class="card" href="games/climbing-route.html"><span class="icon">▶</span>岩壁读线：十二面攀登路线</a>
-<a class="card" href="games/clockwork-escape.html"><span class="icon">▶</span>钟楼密室：六刻回廊</a>
-<a class="card" href="games/comet-weaver.html"><span class="icon">▶</span>彗尾织者：星幕远征</a>
-<a class="card" href="games/connect-arena.html"><span class="icon">▶</span>四子战线</a>
-<a class="card" href="games/courier-grid.html"><span class="icon">▶</span>极速配送网：三城班表</a>
-<a class="card" href="games/courtroom-clash.html"><span class="icon">▶</span>逆转法庭：六案终审</a>
-<a class="card" href="games/cozy-organizer.html"><span class="icon">▶</span>小屋收纳师：十二室委托</a>
-<a class="card" href="games/curling-endgame.html"><span class="icon">▶</span>冰壶残局：十二局定线</a>
-<a class="card" href="games/detective-desk.html"><span class="icon">▶</span>雾城侦探：证言迷局</a>
-<a class="card" href="games/dojo-duel.html"><span class="icon">▶</span>巷馆对决：八门擂台</a>
-<a class="card" href="games/drift-racer.html"><span class="icon">▶</span>巅峰漂移巡回赛</a>
-<a class="card" href="games/drone-survey.html"><span class="icon">▶</span>无人机测绘：十二幅覆盖合同</a>
-<a class="card" href="games/dungeon-delver.html"><span class="icon">▶</span>烛火地牢：余烬王座</a>
-<a class="card" href="games/ecosystem-keeper.html"><span class="icon">▶</span>生态方舟：群落演替</a>
-<a class="card" href="games/elemental-sandbox.html"><span class="icon">▶</span>元素落沙实验室：反应档案</a>
-<a class="card" href="games/ember-tactics.html"><span class="icon">▶</span>余烬战棋：九境远征</a>
-<a class="card" href="games/fishing-harbor.html"><span class="icon">▶</span>潮汐渔港：远海季</a>
-<a class="card" href="games/flappy-glider.html"><span class="icon">▶</span>像素飞翼</a>
-<a class="card" href="games/fleet-duel.html"><span class="icon">▶</span>深海舰队：静默海域</a>
-<a class="card" href="games/forest-dash.html"><span class="icon">▶</span>松果快跑：十二径巡游</a>
-<a class="card" href="games/frequency-bureau.html"><span class="icon">▶</span>城市频率局：十二张干扰图</a>
-<a class="card" href="games/frontier-command.html"><span class="icon">▶</span>前线指挥部：赤潮防线</a>
-<a class="card" href="games/fruit-slice.html"><span class="icon">▶</span>百果试刀：十二席料理委托</a>
-<a class="card" href="games/garden-front.html"><span class="icon">▶</span>芽阵前线：六境繁花</a>
-<a class="card" href="games/gear-calibrator.html"><span class="icon">▶</span>齿轮校时：十二座钟芯委托</a>
-<a class="card" href="games/gem-garden.html"><span class="icon">▶</span>晶糖花园：四季委托</a>
-<a class="card" href="games/glyph-warden.html"><span class="icon">▶</span>字灵守门：十二卷声韵战线</a>
-<a class="card" href="games/hive-sovereign.html"><span class="icon">▶</span>蜂巢女王：四季谱系</a>
-<a class="card" href="games/index.html"><span class="icon">▶</span>迷你游戏合集 · 在线试玩</a>
-<a class="card" href="games/island-survival.html"><span class="icon">▶</span>孤岛十日：潮痕求生</a>
-<a class="card" href="games/lantern-memory.html"><span class="icon">▶</span>灯阵记忆</a>
-<a class="card" href="games/lockmaster-shift.html"><span class="icon">▶</span>潮门值班：十二班船闸调度</a>
-<a class="card" href="games/market-pulse.html"><span class="icon">▶</span>交易风暴：周期实验室</a>
-<a class="card" href="games/maze-chase.html"><span class="icon">▶</span>霓虹迷宫：十二夜巡线</a>
-<a class="card" href="games/merge-orbit.html"><span class="icon">▶</span>星环合成：十二座引力实验室</a>
-<a class="card" href="games/metro-weaver.html"><span class="icon">▶</span>口袋地铁：城市脉络</a>
-<a class="card" href="games/midnight-monitor.html"><span class="icon">▶</span>午夜监控室：第七码头</a>
-<a class="card" href="games/mist-valley-herbarium.html"><span class="icon">▶</span>雾谷植鉴：十二柜双盲标本</a>
-<a class="card" href="games/moba-frontier.html"><span class="icon">▶</span>晶塔前线：群星赛季 V5</a>
-<a class="card" href="games/mole-market.html"><span class="icon">▶</span>菜摊敲敲乐</a>
-<a class="card" href="games/monster-horde.html"><span class="icon">▶</span>怪潮军议：十二城破阵</a>
-<a class="card" href="games/monster-tamer.html"><span class="icon">▶</span>灵兽远征：群岛图鉴</a>
-<a class="card" href="games/moon-lander.html"><span class="icon">▶</span>月面轻降：九站合同</a>
-<a class="card" href="games/mosaic-jigsaw.html"><span class="icon">▶</span>彩窗修复：十二扇光纹委托</a>
-<a class="card" href="games/museum-climate.html"><span class="icon">▶</span>展柜守护：十二馆微气候</a>
-<a class="card" href="games/noodle-shift.html"><span class="icon">▶</span>夜市面摊：十二班灯火账</a>
-<a class="card" href="games/observatory-watch.html"><span class="icon">▶</span>天文台值班：十二夜观测窗</a>
-<a class="card" href="games/orbital-stowage.html"><span class="icon">▶</span>轨道配载局：十二次重心验舱</a>
-<a class="card" href="games/pathogen-protocol.html"><span class="icon">▶</span>微境协议：四域演算</a>
-<a class="card" href="games/penalty-rush.html"><span class="icon">▶</span>点球热浪</a>
-<a class="card" href="games/photo-safari.html"><span class="icon">▶</span>荒野摄影师：十二次生态调查</a>
-<a class="card" href="games/pixel-clues.html"><span class="icon">▶</span>像素线索：十二卷逻辑图鉴</a>
-<a class="card" href="games/pocket-companion.html"><span class="icon">▶</span>口袋伙伴：星愿谱系</a>
-<a class="card" href="games/pocket-empire.html"><span class="icon">▶</span>方格帝国：六境远征</a>
-<a class="card" href="games/prism-breaker.html"><span class="icon">▶</span>棱镜破阵：十二座光学堡垒</a>
-<a class="card" href="games/prism-orchard.html"><span class="icon">▶</span>棱镜果园：十二季光谱委托</a>
-<a class="card" href="games/pulse-studio.html"><span class="icon">▶</span>脉冲音乐室：自由编曲</a>
-<a class="card" href="games/radish-guard.html"><span class="icon">▶</span>萝卜边境：十二线守望</a>
-<a class="card" href="games/relay-coordination.html"><span class="icon">▶</span>电网守门人：十二站保护整定</a>
-<a class="card" href="games/river-holdem.html"><span class="icon">▶</span>河牌之夜：三席读牌赛</a>
-<a class="card" href="games/runway-stylist.html"><span class="icon">▶</span>镜前主编：十二期封面委托</a>
-<a class="card" href="games/shadow-post.html"><span class="icon">▶</span>影邮潜行：十二夜</a>
-<a class="card" href="games/shan-hai.html"><span class="icon">▶</span>山海伏魔录</a>
-<a class="card" href="games/signal-caravan.html"><span class="icon">▶</span>信标车队：十二线护送战役</a>
-<a class="card" href="games/silent-rescue.html"><span class="icon">▶</span>静默搜救：十二次声源定位</a>
-<a class="card" href="games/sky-hop.html"><span class="icon">▶</span>云端跃迁：十二峰风径</a>
-<a class="card" href="games/skyline-planner.html"><span class="icon">▶</span>掌心城市：十二城规划战役</a>
-</div>
-
-<h2>Idle &amp; Tycoon <small>(1)</small></h2>
-<div class="grid">
-<a class="card" href="games/pocket-farm.html"><span class="icon">▶</span>四季小农场：溪谷年鉴</a>
-</div>
-
-<h2>Tile &amp; Board <small>(5)</small></h2>
-<div class="grid">
-<a class="card" href="games/auto-chess-forge.html"><span class="icon">▶</span>符文自走棋：群星赛季</a>
-<a class="card" href="games/mahjong-link.html"><span class="icon">▶</span>麻将连台</a>
-<a class="card" href="games/midnight-chess.html"><span class="icon">▶</span>午夜棋局：十二局战术谱</a>
-<a class="card" href="games/mine-matrix.html"><span class="icon">▶</span>深空扫雷：逻辑航图</a>
-<a class="card" href="games/neon-2048.html"><span class="icon">▶</span>霓虹 2048：万象矩阵</a>
-</div>
-
-<h2>Words &amp; Trivia <small>(1)</small></h2>
-<div class="grid">
-<a class="card" href="games/crossword-cafe.html"><span class="icon">▶</span>十字词咖啡：十二桌主题词盘</a>
-</div>
-
+</header>
+<main class="wrap">
+  <div class="grid">
+    <a href="games/2048/index.html"><img src="games/2048/shot.png" alt="2048"></a>
+    <a href="games/t-rex-runner/index.html"><img src="games/t-rex-runner/shot.png" alt="Dino Run"></a>
+    <a href="games/tanks/index.html"><img src="tanks/shot.png" alt="Tank Battle — two player"></a>
+    <a href="games/pool/index.html"><img src="games/pool/shot.png" alt="8 Ball Pool"></a>
+    <a href="games/hextris/index.html"><img src="games/hextris/shot.png" alt="Hextris"></a>
+    <a href="games/clumsy-bird/index.html"><img src="games/clumsy-bird/shot.png" alt="Flappy Bird"></a>
+    <a href="games/tower/index.html"><img src="games/tower/shot.png" alt="Tower Blocks"></a>
+    <a href="games/chess/index.html"><img src="games/chess/shot.png" alt="Chess vs computer"></a>
+    <a href="games/asteroids/index.html"><img src="games/asteroids/shot.png" alt="Asteroids"></a>
+    <a href="games/missile/index.html"><img src="games/missile/shot.png" alt="Missile Game"></a>
+    <a href="games/house/index.html"><img src="games/house/shot.png" alt="The House — horror escape"></a>
+    <a href="games/hexgl/index.html"><img src="games/hexgl/shot.png" alt="HexGL — 3D futuristic racing"></a>
+  </div>
+</main>
+<footer>
+  <p>Open-source games · licenses &amp; sources in <a href="games/CREDITS.md">games/CREDITS.md</a></p>
+</footer>
+</body>
 </html>
