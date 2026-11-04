@@ -84,6 +84,16 @@
   a.card.alt { border-color:#0f8f5b; background:#0d1f18; }
   a.card.alt:hover { border-color:#2fd48d; box-shadow:0 6px 20px rgba(47,212,141,.18); }
   a.card.alt .open { background:linear-gradient(90deg,#18c96b,#3ec5ff); }
+
+  /* live reachability check */
+  .resline{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:18px 0 6px;padding:12px 16px;font-size:.95rem;color:#e6ebff;background:#10121b;border:1px solid #2a3040;border-radius:10px}
+  .resline button{cursor:pointer;border:0;border-radius:8px;padding:8px 14px;background:#2f6fed;color:#fff;font-size:.88rem}
+  .resline button.off{background:#3a3f4b}
+  a.card.dead{opacity:.38;filter:grayscale(.85)}
+  a.card.dead .name::after{content:" ❌"; }
+  a.card.dead .desc{color:#ff6b6b}
+  a.card.dead .desc::before{content:"❌ unreachable on your network — "}
+  body.only-working a.card.dead{display:none}
 </style>
 </head>
 <body>
@@ -1542,6 +1552,43 @@
 
 
 
+
+
+  <section>
+    <h2>📡 LIVE BLOCK-CHECK <span class="tag">tests every domain from YOUR internet as soon as this loads</span></h2>
+    <div class="resline"><span id="resmsg">📡 testing…</span> <button id="resbtn" type="button">✅ working only: hide unreachable</button></div>
+  </section>
+<script>
+(function(){
+  var m = document.querySelector('.gv');
+  var cards = Array.prototype.slice.call(document.querySelectorAll(m ? '.gv a.gv-card' : 'main a.card'));
+  var hosts = {};
+  cards.forEach(function(c){
+    var h; try { h = new URL(c.href).host; } catch(e) { h = null; }
+    if (!h) return;
+    (hosts[h] = hosts[h] || []).push(c);
+  });
+  var names = Object.keys(hosts);
+  var line = document.querySelector(m ? '.gv .resline' : '.resline');
+  var msg = document.getElementById('resmsg');
+  var btn = document.getElementById('resbtn');
+  if (btn) btn.addEventListener('click', function(){
+    if (m) m.classList.toggle('only-working'); else document.body.classList.toggle('only-working');
+    btn.classList.toggle('off');
+  });
+  var ok = 0, done = 0, total = names.length;
+  function tmo(){ return new Promise(function(res){ setTimeout(function(){ res(false); }, 9000); }); }
+  names.forEach(function(h){
+    var url = hosts[h][0].href;
+    Promise.race([fetch(url, {mode:'no-cors', cache:'no-store'}).then(function(){ return true; }).catch(function(){ return false; }), tmo()])
+      .then(function(good){
+        done++;
+        if (good) { ok++; } else { hosts[h].forEach(function(c){ c.classList.add(m ? 'gv-dead' : 'dead'); }); }
+        if (msg) msg.textContent = '📡 network check: ' + ok + '/' + total + ' domains reachable from your internet · ' + (total - done) + ' left…';
+      });
+  });
+})();
+</script>
 
   <p class="footnote">
     ✅ Every card here lives on its own domain — no github.io, no wasm.rip, no gn-math.dev, so this list dodges whole-domain blocks.

@@ -138,6 +138,7 @@
 
 
 
+
 <!-- ===== GAME VAULT (embedded, namespace-scoped: .gv-*) ===== -->
 <div class="gv">
 <style>
@@ -194,6 +195,18 @@
 .gv a.gv-card.gv-alt{ border-color:#0f8f5b; background:#0d1f18; }
 .gv a.gv-card.gv-alt:hover{ border-color:#2fd48d; box-shadow:0 6px 20px rgba(47,212,141,.18); }
 .gv a.gv-card.gv-alt .open{ background:linear-gradient(90deg,#18c96b,#3ec5ff); }
+.gv a.gv-card.dead{opacity:.38;filter:grayscale(.85)}
+.gv a.gv-card.dead .name::after{content:" ❌"; }
+.gv a.gv-card.dead .desc{color:#ff6b6b}
+.gv a.gv-card.dead .desc::before{content:"❌ unreachable on your network — "}
+.gv .resline{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:18px 0 6px;padding:12px 16px;font-size:.95rem;color:#e6ebff;background:#10121b;border:1px solid #2a3040;border-radius:10px}
+.gv .resline button{cursor:pointer;border:0;border-radius:8px;padding:8px 14px;background:#2f6fed;color:#fff;font-size:.88rem}
+.gv .resline button.off{background:#3a3f4b}
+.gv a.gv-card.gv-dead{opacity:.38;filter:grayscale(.85)}
+.gv a.gv-card.gv-dead .gv-name::after{content:' ❌'}
+.gv a.gv-card.gv-dead .gv-desc{color:#ff6b6b}
+.gv a.gv-card.gv-dead .gv-desc::before{content:'❌ unreachable on your network — '}
+.gv.only-working a.gv-card.gv-dead{display:none}
 </style>
 <section>
     <h2>🛡️ BLOCKED-PROOF: all different domains <span class="gv-tag">NONE use wasm.rip or gn-math.dev — works when BOTH are blocked</span></h2>
@@ -1646,6 +1659,11 @@
         <span class="gv-open">PLAY ▶</span>
       </a>
     </div>
+  </section>
+
+<section>
+    <h2>📡 LIVE BLOCK-CHECK <span class="gv-tag">tests every domain from YOUR internet as soon as this loads</span></h2>
+    <div class="resline"><span id="resmsg">📡 testing…</span> <button id="resbtn" type="button">✅ working only: hide unreachable</button></div>
   </section>
 </div>
 <!-- ===== /GAME VAULT ===== -->
