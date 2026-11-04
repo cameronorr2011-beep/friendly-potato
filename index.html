@@ -139,6 +139,7 @@
 
 
 
+
 <!-- ===== GAME VAULT (embedded, namespace-scoped: .gv-*) ===== -->
 <div class="gv">
 <style>
@@ -1664,6 +1665,37 @@
 <section>
     <h2>📡 LIVE BLOCK-CHECK <span class="gv-tag">tests every domain from YOUR internet as soon as this loads</span></h2>
     <div class="resline"><span id="resmsg">📡 testing…</span> <button id="resbtn" type="button">✅ working only: hide unreachable</button></div>
+<script>
+(function(){
+  var m = document.querySelector('.gv');
+  var cards = Array.prototype.slice.call(document.querySelectorAll(m ? '.gv a.gv-card' : 'main a.card'));
+  var hosts = {};
+  cards.forEach(function(c){
+    var h; try { h = new URL(c.href).host; } catch(e) { h = null; }
+    if (!h) return;
+    (hosts[h] = hosts[h] || []).push(c);
+  });
+  var names = Object.keys(hosts);
+  var line = document.querySelector(m ? '.gv .resline' : '.resline');
+  var msg = document.getElementById('resmsg');
+  var btn = document.getElementById('resbtn');
+  if (btn) btn.addEventListener('click', function(){
+    if (m) m.classList.toggle('only-working'); else document.body.classList.toggle('only-working');
+    btn.classList.toggle('off');
+  });
+  var ok = 0, done = 0, total = names.length;
+  function tmo(){ return new Promise(function(res){ setTimeout(function(){ res(false); }, 9000); }); }
+  names.forEach(function(h){
+    var url = hosts[h][0].href;
+    Promise.race([fetch(url, {mode:'no-cors', cache:'no-store'}).then(function(){ return true; }).catch(function(){ return false; }), tmo()])
+      .then(function(good){
+        done++;
+        if (good) { ok++; } else { hosts[h].forEach(function(c){ c.classList.add(m ? 'gv-dead' : 'dead'); }); }
+        if (msg) msg.textContent = '📡 network check: ' + ok + '/' + total + ' domains reachable from your internet · ' + (total - done) + ' left…';
+      });
+  });
+})();
+</script>
   </section>
 </div>
 <!-- ===== /GAME VAULT ===== -->
