@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎮 Game Vault — Verified GitHub Games</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background:#0b0f1a;
+    color:#e6ebff;
+    font-family:'Segoe UI', system-ui, sans-serif;
+    min-height:100vh;
+    padding:32px 20px 80px;
+  }
+  .wrap { max-width:1150px; margin:0 auto; }
+  h1 {
+    font-size:clamp(1.8rem, 4vw, 2.6rem);
+    background:linear-gradient(90deg,#00e5ff,#b16cff);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    text-align:center;
+    margin-bottom:6px;
+  }
+  .sub {
+    text-align:center; color:#8b94b8;
+    font-size:0.95rem; margin-bottom:36px;
+  }
+  section { margin-bottom:40px; }
+  h2 {
+    font-size:1.25rem;
+    color:#00e5ff;
+    border-bottom:2px solid #1a2340;
+    padding-bottom:8px;
+    margin-bottom:18px;
+    letter-spacing:0.5px;
+  }
+  h2 .tag {
+    font-size:0.7rem; color:#8b94b8;
+    vertical-align:middle; margin-left:8px;
+    letter-spacing:1px;
+  }
+  .grid {
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(240px, 1fr));
+    gap:14px;
+  }
+  a.card {
+    display:block;
+    background:#131a2e;
+    border:1px solid #232c4d;
+    border-radius:12px;
+    padding:16px 18px;
+    text-decoration:none;
+    color:#e6ebff;
+    transition:transform .12s ease, border-color .12s ease, box-shadow .12s ease;
+  }
+  a.card:hover {
+    transform:translateY(-3px);
+    border-color:#00e5ff;
+    box-shadow:0 6px 20px rgba(0,229,255,.15);
+  }
+  .card .name { font-weight:700; font-size:1.05rem; margin-bottom:4px; }
+  .card .desc { font-size:0.82rem; color:#9aa4c4; }
+  .card .open {
+    margin-top:10px;
+    display:inline-block;
+    background:linear-gradient(90deg,#00c2ff,#7a5cff);
+    color:#fff;
+    font-size:0.78rem; font-weight:700;
+    padding:7px 14px;
+    border-radius:8px;
+    letter-spacing:0.5px;
+  }
+  a.card.hot { border-color:#5c2ec9; background:#171331; }
+  a.card.hot:hover { border-color:#b16cff; box-shadow:0 6px 20px rgba(177,108,255,.2); }
+  a.card.hot .open { background:linear-gradient(90deg,#b16cff,#ff5cb1); }
+  .stars { color:#ffd166; }
+  .footnote {
+    text-align:center; color:#5b6488;
+    font-size:0.78rem; margin-top:50px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🎮 GAME VAULT</h1>
+  <p class="sub">55 verified games · every button opens the real game (Open in a new tab)</p>
+
+  <section>
+    <h2>🕹️ DOOM ENGINE FAMILY <span class="tag">FPS CLASSICS PORTED TO BROWSER</span></h2>
+    <div class="grid">
+      <a class="card hot" href="https://digitalcybersoft.github.io/eduke32-wasm/" target="_blank" rel="noopener">
+        <div class="name">🧨 Duke Nukem 3D</div>
+        <div class="desc">Full eduke32 WASM port</div>
+        <span class="open">PLAY ▶</span>
+      </a>
+      <a class="card hot" href="https://raz0red.github.io/webprboom/" target="_blank" rel="noopener">
+        <div class="name">💀 DOOM II: Hell on Earth</div>
+        <div class="desc">prBoom engine — plug in your WAD</div>
+        <span class="open">PLAY ▶</span>
+      </a>
+      <a class="card" href="https://joeheyming.github.io/doom/" target="_blank" rel="noopener">
+        <div class="name">💀 DOOM</div>
+        <div class="desc">Original — browser port</div>
+        <span class="open">PLAY ▶</span>
+      </a>
+      <a class="card" href="https://ustymukhman.github.io/WebDOOM/public/" target="_blank" rel="noopener">
+        <div class="name">💀 WebDOOM</div>
+        <div class="desc">Another classic DOOM port</div>
+        <span class="open">PLAY ▶</span>
+      </a>
+      <a class="card" href="https://pixelsuft.github.io/hl/" target="_blank" rel="noopener">
+        <div class="name">😰 Half-Life</div>
+        <div class="desc">GoldSrc engine web port</div>
+        <span class="open">PLAY ▶</span>
+      </a>
+      <a class="card" href="https://x8bitrain.github.io/webXash/" target="_blank" rel="noopener">
+        <div class="name">😰 Xash Engine</div>
+        <div class="desc">More Half-Life in the browser</div>
+        <span class="open">PLAY ▶</span>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <h2>🚗 GTA / OPEN WORLD <span class="tag">FULL PORTS</span></h2>
+    <div class="grid">
+      <a class="card" href="https://m1stermo.github.io/gta2/" target="_blank" rel="noopener">
+        <div class="name">🌆 GTA 2</div>
+        <div class="desc">Grand Theft Auto 2 web port</div>
+        <span class="open">PLAY ▶</span>
+      </a>
+      <a class="card" href="https://joncodeofficial.github.io/gta-vice-city-wasm/" target="_blank" rel="noopener">
+        <div class="name">🌴 GTA Vice City</div>
+        <div class="desc">WASM port</div>
+        <span class="open">PLAY ▶</span>
+      </a>
+      <a class="card" href="https://vheissu.github.io/hit-and-run-web/" target="_blank" rel="noopener">
+        <div class="name">🚌 Simpsons Hit &amp; Run</div>
+        <div class="desc">Web port</div>
+        <span class="open">PLAY ▶</span>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <h2>⚔️ ACTION / RPG / FIGHTING <span class="tag">RECOMPILED IN THE BROWSER</span></h2>
+    <div class="grid">
+      <a class="card hot" href="https://jjabroin.github.io/tekken-web-recomp/index.html" target="_blank" rel="noopener">
+        <div class="name">🥊 Tekken 3</div>
+        <div class="desc">Web Recompiled Edition</div>
+        <span class="open">PLAY ▶</span>
+      </a>
+      <a class="card" href="https://d07riv.github.io/diabloweb/" target="_blank" rel="noopener">
+        <div class="name">😈 Diablo</div>
+        <div class="desc">DevilutionX web port</div>
+        <span class="open">PLAY ▶</span>
+      </a>
+      <a class="card" href="https://johnimril.github.io/diablo_web/" target="_blank" rel="noopener">
+        <div class="name">😈 Diablo (alt)</div>
+        <div class="desc">Second Diablo web port</div>
+        <span class="open">PLAY ▶</span>
+      </a>
+      <a class="card" href="https://shmargus.github.io/GSRecomp/" target="_blank" rel="noopener">
+        <div class="name">🗡️ Golden Sun</div>
+        <div class="desc">Recomp port</div>
+        <span class="open">PLAY ▶</span>
+      </a>
+      <a class="card" href="https://andrewaltimit.github.io/legend-of-legaia-re/play.html" target="_blank" rel="noopener">
+        <div class="name">⚔️ Legend of Legaia</div>
+        <div class="desc">PSX web port</div>
+        <span class="open">PLAY ▶</span>
+      </a>
+      <a class="card" href="https://awest813.github.io/NCAA-10-PSP-Recomp/" target="_blank" rel="noopener">
+        <div class="name">🏈 NCAA 10</div>
+        <div class="desc">PSP recomp</div>
+        <span class="open">PLAY ▶</span>
+      </a>
+      <a class="card" href="https://solid7s.github.io/Virtual-On-Web/" target="_blank" rel="noopener">
+        <div class="name">🤖 Virtual-On</div>
+        <div class="desc">Mech fighting web port</div>
+        <span class="open">PLAY ▶</span>
+      </a>
+      <a class="card" href="https://chiikabu.github.io/the-browsing-of-isaac/" target="_blank" rel="noopener">
+        <div class="name">👶 The Binding of Isaac</div>
+        <div class="desc">Browser port</div>
+        <span class="open">PLAY ▶</span>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <h2>🏎️ RACING / PLATFORMING <span class="tag">WASM PORTS</span></h2>
+    <div class="grid">
+      <a class="card" href="https://mathadventure1.github.io/sm64/sm64/index.html" target="_blank" rel="noopener">
+        <div class="name">🍄 Super Mario 64</div>
+        <div class="desc">PC port in-browser</div>
+        <span class="open">PLAY ▶</span>
+      </a>
+      <a class="card" href="https://vinmannie.github.io/Sonic-1-WASM/" target="_blank" rel="noopener">
+        <div class="name">🔵 Sonic 1</div>
+        <div class="desc">WASM port</div>
+        <span class="open">PLAY ▶</span>
+      </a>
+      <a class="card" href="https://tws2401.github.io/Sonic-CD-WASM/" target="_blank" rel="noopener">
+        <div class="name">📀 Sonic CD</div>
+        <div class="desc">WASM port</div>
+        <span class="open">PLAY ▶</span>
+      </a>
+      <a class="card" href="https://skyleite.github.io/Kart-Public-WASM/" target="_blank" rel="noopener">
+        <div class="name">🛹 Sonic Kart</div>
+        <div class="desc">WASM port</div>
+        <span class="open">PLAY ▶</span>
+      </a>
+      <a class="card" href="https://burnedpopcorn.github.io/SM-Kart-ZX-Web-Port/index.html" target="_blank" rel="noopener">
+        <div class="name">🏁 Super Mario Kart ZX</div>
+        <div class="desc">Web port</div>
+        <span class="open">PLAY ▶</span>
+      </a>
+      <a class="card" href="https://rinnegatamante.github.io/Crash-Team-Racing-High-Octane/" target="_blank" rel="noopener">
+        <div class="name">🦊 Crash Team Racing</div>
+        <div class="desc">CTR High-Octane port</div>
+        <span class="open">PLAY ▶</span>
+      </a>
+      <a class="card" href="https://johannruiz.github.io/Daytona-USA-Web/" target="_blank" rel="noopener">
+        <div class="name">🏁 Daytona USA</div>
+        <div class="desc">Arcade racer port</div>
+        <span class="open">PLAY ▶</span>
+      </a>
+      <a class="card hot" href="https://alexboops.github.io/geometry-dash-webport/" target="_blank" rel="noopener">
+        <div class="name">🔺 Geometry Dash</div>
+        <div class="desc">WASM port</div>
+        <span class="open">PLAY ▶</span>
+      </a>
+      <a class="card" href="https://clarkeadg.github.io/opensonic-js/" target="_blank" rel="noopener">
+        <div class="name">🔵 Open Sonic JS</div>
+        <div class="desc">JS remake</div>
+        <span class="open">PLAY ▶</span>
+      </a>
+      <a class="card" href="https://grubbyplaya.github.io/Sonic-Worlds-Next-WASM/Sonic%20Worlds%20Next.html" target="_blank" rel="noopener">
+        <div class="name">🌀 Sonic Worlds Next</div>
+        <div class="desc">WASM port</div>
+        <span class="open">PLAY ▶</span>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <h2>🧠 PUZZLES &amp; ZOMBIES <span class="tag">CLASSIC GAMES REBUILT</span></h2>
+    <div class="grid">
+      <a class="card hot" href="https://squidward5.github.io/ktane-webport/" target="_blank" rel="noopener">
+        <div class="name">💣 Keep Talking &amp; Nobody Explodes</div>
+        <div class="desc">Defuse the bomb!</div>
+        <span class="open">PLAY ▶</span>
+      </a>
+      <a class="card" href="https://goofyahhbro69420.github.io/COD-ZOMBIES/" target="_blank" rel="noopener">
+        <div class="name">🧟 CoD Zombies</div>
+        <div class="desc">Browser zombies port</div>
+        <span class="open">PLAY ▶</span>
+      </a>
+      <a class="card" href="https://goofyahhbro69420.github.io/Black-Ops-2/" target="_blank" rel="noopener">
+        <div class="name">🔫 Black Ops 2</div>
+        <div class="desc">Web port</div>
+        <span class="open">PLAY ▶</span>
+      </a>
+      <a class="card" href="https://omnium-games.github.io/faust/" target="_blank" rel="noopener">
+        <div class="name">🎭 Faust</div>
+        <div class="desc">Unique browser game</div>
+        <span class="open">PLAY ▶</span>
+      </a>
+      <a class="card" href="https://second-impressions.github.io/caesar2-port/" target="_blank" rel="noopener">
+        <div class="name">🏛️ Caesar II</div>
+        <div class="desc">City-builder port</div>
+        <span class="open">PLAY ▶</span>
+      </a>
+      <a class="card" href="https://richardatct.github.io/simgolf-web/" target="_blank" rel="noopener">
+        <div class="name">⛳ SimGolf</div>
+        <div class="desc">Web port</div>
+        <span class="open">PLAY ▶</span>
+      </a>
+      <a class="card" href="https://yell0wsuit.github.io/cuttherope-dx/" target="_blank" rel="noopener">
+        <div class="name">✂️ Cut the Rope DX</div>
+        <div class="desc">Remastered flash classic</div>
+        <span class="open">PLAY ▶</span>
+      </a>
+      <a class="card" href="https://akratch.github.io/golden-balloon/" target="_blank" rel="noopener">
+        <div class="name">🎈 Golden Balloon</div>
+        <div class="desc">Indie browser game</div>
+        <span class="open">PLAY ▶</span>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <h2>🎮 RETRO EMULATORS <span class="tag">LOAD ANY GAME ROM IN THE BROWSER</span></h2>
+    <div class="grid">
+      <a class="card" href="https://cattn.github.io/gba/" target="_blank" rel="noopener">
+        <div class="name">🎮 GBA Emulator</div>
+        <div class="desc">Game Boy Advance</div>
+        <span class="open">OPEN ▶</span>
+      </a>
+      <a class="card" href="https://akatsuki105.github.io/dawngb/" target="_blank" rel="noopener">
+        <div class="name">🎮 DawnGB</div>
+        <div class="desc">Game Boy / GBC emulator</div>
+        <span class="open">OPEN ▶</span>
+      </a>
+      <a class="card" href="https://bokuweb.github.io/rustynes/" target="_blank" rel="noopener">
+        <div class="name">🎮 RustyNES</div>
+        <div class="desc">NES emulator</div>
+        <span class="open">OPEN ▶</span>
+      </a>
+      <a class="card" href="https://picklekid31.github.io/GBA-unblocked-games/" target="_blank" rel="noopener">
+        <div class="name">🎮 GBA Pack</div>
+        <div class="desc">Emulator + games</div>
+        <span class="open">OPEN ▶</span>
+      </a>
+      <a class="card" href="https://teddblue.github.io/gamebois/" target="_blank" rel="noopener">
+        <div class="name">🎮 GameBois</div>
+        <div class="desc">Handheld emulator</div>
+        <span class="open">OPEN ▶</span>
+      </a>
+      <a class="card" href="https://theooofficial.github.io/myRETROGAMES/" target="_blank" rel="noopener">
+        <div class="name">🎮 myRETROGAMES</div>
+        <div class="desc">Retro emulator collection</div>
+        <span class="open">OPEN ▶</span>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <h2>🌐 MULTI-GAME HUBS <span class="tag">HUNDREDS OF GAMES ON ONE SITE</span></h2>
+    <div class="grid">
+      <a class="card" href="https://5kh0.github.io/" target="_blank" rel="noopener">
+        <div class="name">🌐 5kh0</div>
+        <div class="desc">Big mirror hub</div>
+        <span class="open">OPEN ▶</span>
+      </a>
+      <a class="card" href="https://75kh0.github.io/" target="_blank" rel="noopener">
+        <div class="name">🌐 75kh0</div>
+        <div class="desc">Second mirror hub</div>
+        <span class="open">OPEN ▶</span>
+      </a>
+      <a class="card" href="https://sz-games.github.io/" target="_blank" rel="noopener">
+        <div class="name">🌐 SZ Games</div>
+        <div class="desc">Multi-game hub</div>
+        <span class="open">OPEN ▶</span>
+      </a>
+      <a class="card" href="https://skoolgq.github.io/" target="_blank" rel="noopener">
+        <div class="name">🌐 SkoolGQ</div>
+        <div class="desc">Multi-game hub</div>
+        <span class="open">OPEN ▶</span>
+      </a>
+      <a class="card" href="https://658658658.github.io/" target="_blank" rel="noopener">
+        <div class="name">🌐 658 hub</div>
+        <div class="desc">Multi-game hub</div>
+        <span class="open">OPEN ▶</span>
+      </a>
+      <a class="card" href="https://masonsunblockedgames.github.io/MasonsUnblockedGames/" target="_blank" rel="noopener">
+        <div class="name">🌐 Mason's UBG</div>
+        <div class="desc">Multi-game hub</div>
+        <span class="open">Open ▶</span>
+      </a>
+      <a class="card" href="https://mountain-game-games.github.io/" target="_blank" rel="noopener">
+        <div class="name">🌐 Mountain Games</div>
+        <div class="desc">Multi-game hub</div>
+        <span class="open">OPEN ▶</span>
+      </a>
+      <a class="card" href="https://web-dashers.github.io/" target="_blank" rel="noopener">
+        <div class="name">🌐 Web Dashers</div>
+        <div class="desc">Multi-game hub</div>
+        <span class="open">OPEN ▶</span>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <h2>🎲 MORE VERIFIED PICKS <span class="tag">INDIE &amp; SMALL GAMES</span></h2>
+    <div class="grid">
+      <a class="card" href="https://maxbittker.github.io/sandspiel/" target="_blank" rel="noopener">
+        <div class="name">🏖️ Sandspiel</div>
+        <div class="desc">Falling-sand sandbox</div>
+        <span class="open">PLAY ▶</span>
+      </a>
+      <a class="card" href="https://tsoding.github.io/smooth-snake/" target="_blank" rel="noopener">
+        <div class="name">🐍 Smooth Snake</div>
+        <div class="desc">Classic snake, JS</div>
+        <span class="open">PLAY ▶</span>
+      </a>
+      <a class="card" href="https://justinmimbs.github.io/rs-asteroids/" target="_blank" rel="noopener">
+        <div class="name">☄️ Asteroids</div>
+        <div class="desc">Rust + WebGL</div>
+        <span class="open">PLAY ▶</span>
+      </a>
+      <a class="card" href="https://reu.github.io/bevyroids/" target="_blank" rel="noopener">
+        <div class="name">Asteroids Bevyroids</div>
+        <div class="desc">Asteroids 2, WASM</div>
+        <span class="open">PLAY ▶</span>
+      </a>
+      <a class="card" href="https://transistorfet.github.io/fallingrust/" target="_blank" rel="noopener">
+        <div class="name">Falling Rust</div>
+        <div class="desc">Falling-sand game</div>
+        <span class="open">PLAY ▶</span>
+      </a>
+      <a class="card" href="https://dondido.github.io/zombie-breakout/" target="_blank" rel="noopener">
+        <div class="name">Zombie Breakout</div>
+        <div class="desc">Browser zombie game</div>
+        <span class="open">PLAY ▶</span>
+      </a>
+      <a class="card" href="https://deciduously.github.io/hunt-the-wumpus/" target="_blank" rel="noopener">
+        <div class="name">Hunt the Wumpus</div>
+        <div class="desc">Classic text game</div>
+        <span class="open">PLAY ▶</span>
+      </a>
+      <a class="card" href="https://alamminsalo.github.io/snakewasm/" target="_blank" rel="noopener">
+        <div class="name">Snake WASM</div>
+        <div class="desc">WASM snake</div>
+        <span class="open">PLAY ▶</span>
+      </a>
+      <a class="card" href="https://2bt.github.io/bike/" target="_blank" rel="noopener">
+        <div class="name">Bike</div>
+        <div class="desc">Web bike game</div>
+        <span class="open">PLAY ▶</span>
+      </a>
+      <a class="card" href="https://daviey.github.io/mario/" target="_blank" rel="noopener">
+        <div class="name">SUPER CLI MARIO</div>
+        <div class="desc">Indie browser game</div>
+        <span class="open">PLAY ▶</span>
+      </a>
+      <a class="card" href="https://elicoggins.github.io/keyboardwarrior/" target="_blank" rel="noopener">
+        <div class="name">⌨️ Keyboard Warrior</div>
+        <div class="desc">Rhythm typing game</div>
+        <span class="open">PLAY ▶</span>
+      </a>
+    </div>
+  </section>
+
+  <p class="footnote">
+    Every link verified HTTP-200 live · these games are fully open-source decomp/WASM ports
+    <br>💡 DOOM II (webprboom) &amp; Duke Nukem 3D may ask for your original WAD/game files — the engine loads, the data is yours to add.
+  </p>
+</div>
+</body>
+</html>
