@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blockrain — Tetris</title>
+<link rel="stylesheet" href="src/blockrain.css">
+<style>
+  html,body{margin:0;height:100%;background:#22242e;color:#fff;font-family:system-ui,sans-serif;display:flex;align-items:center;justify-content:center}
+  .wrap{text-align:center}
+  h1{font-size:15px;letter-spacing:2px;text-transform:uppercase;color:#9aa0b4;margin:0 0 8px}
+  #board{width:230px;height:345px}
+  p{font-size:11px;color:#7d8296;margin-top:10px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Blockrain</h1>
+  <div id="board"></div>
+  <p>← → move · ↑ rotate · ↓ drop faster</p>
+</div>
+<script src="assets/js/jquery-1.11.1.min.js"></script>
+<script src="src/blockrain.jquery.libs.js"></script>
+<script src="src/blockrain.jquery.src.js"></script>
+<script src="src/blockrain.jquery.themes.js"></script>
+<script>
+$(function(){
+  $('#board').blockrain({
+    autoplay: false,
+    auto_drop_time: 0,
+    speed: 20,
+    theme: 'modern',
+    score: function(score){ }
+  }).blockrain('start');
+  $('#board canvas').attr('tabindex', 0).focus();
+});
+</script>
+</body>
+</html>
