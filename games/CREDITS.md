@@ -24,6 +24,7 @@ public GitHub repository, unmodified. License texts are in `_licenses/`.
 | games/minesweeper | https://github.com/Joeynoh/HTML5-Minesweeper | MIT |
 | games/breakout | https://github.com/igameproject/Breakout | MIT |
 | games/doom | https://github.com/carlini/js13k2019-yet-another-doom-clone | GPL-3.0 |
+| games/snake-io | https://github.com/bibhuticoder/snake.io | MIT |
 | games/sandspiel | https://github.com/MaxBittker/sandspiel | MIT |
 | games/flappy-learning | https://github.com/xviniette/FlappyLearning | MIT |
 | games/tower_game | https://github.com/iamkun/tower_game | MIT |
