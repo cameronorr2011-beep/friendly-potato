@@ -26,6 +26,15 @@
   code { font-size: .95em; }
   footer { text-align: center; font-size: .8rem; color: #97917f; padding: 2rem 0 3rem; }
   footer a { color: #97917f; }
+  .featured { background: linear-gradient(135deg,#1b1020,#2a1030 55%,#0d0a14); border-top: 3px solid #b16cff; border-bottom: 3px solid #b16cff; padding: 1.5rem 1.5rem; }
+  .featured .wrap { display: flex; flex-wrap: wrap; gap: 1rem 2rem; align-items: center; justify-content: space-between; }
+  .feat-kicker { font-size: .72rem; letter-spacing: .18em; text-transform: uppercase; color: #9a8bb8; }
+  .featured h2 { font-size: 2rem; color: #efe6ff; font-weight: normal; letter-spacing: .02em; }
+  .feat-sub { color: #b9aed0; font-size: .9rem; max-width: 46ch; margin-top: .35rem; }
+  .feat-buttons { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .feat-buttons a { text-decoration: none; font-family: system-ui, sans-serif; font-size: .88rem; font-weight: 700; letter-spacing: .03em; padding: 11px 18px; border-radius: 999px; border: 1px solid #4a3a68; color: #d8c9f5; }
+  .feat-buttons a:hover { border-color: #b16cff; color: #fff; }
+  .feat-buttons .feat-play { background: linear-gradient(90deg,#b16cff,#ff5cb1); color: #fff; border-color: transparent; }
 </style>
 </head>
 <body>
@@ -35,6 +44,21 @@
     <p>pick a card, take a break</p>
   </div>
 </header>
+
+<section class="featured">
+  <div class="wrap">
+    <div>
+      <p class="feat-kicker">featured · play in your browser</p>
+      <h2>🔪 Hollow Knight</h2>
+      <p class="feat-sub">Fan-made web ports of Hollow Knight — a full Unity build, a JavaScript version, and the Silksong web port.</p>
+    </div>
+    <div class="feat-buttons">
+      <a class="feat-play" href="https://cameronorr2011-beep.github.io/hollow-knight-re/" target="_blank" rel="noopener">▶ Play Hollow Knight</a>
+      <a href="https://cameronorr2011-beep.github.io/hollow-knight-js/" target="_blank" rel="noopener">JS version</a>
+      <a href="https://cameronorr2011-beep.github.io/hollow-knight-silksong/" target="_blank" rel="noopener">Silksong</a>
+    </div>
+  </div>
+</section>
 
 <main class="wrap">
   <div class="grid">
