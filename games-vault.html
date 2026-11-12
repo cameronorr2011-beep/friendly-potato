@@ -6,86 +6,27 @@
 <title>🎮 Game Vault — Verified GitHub Games</title>
 <style>
   * { margin:0; padding:0; box-sizing:border-box; }
-  body {
-    background:#0b0f1a;
-    color:#e6ebff;
-    font-family:'Segoe UI', system-ui, sans-serif;
-    min-height:100vh;
-    padding:32px 20px 80px;
-  }
+  body { background:#0b0f1a; color:#e6ebff; font-family:'Segoe UI', system-ui, sans-serif; min-height:100vh; padding:32px 20px 80px; }
   .wrap { max-width:1150px; margin:0 auto; }
-  h1 {
-    font-size:clamp(1.8rem, 4vw, 2.6rem);
-    background:linear-gradient(90deg,#00e5ff,#b16cff);
-    -webkit-background-clip:text;
-    background-clip:text;
-    color:transparent;
-    text-align:center;
-    margin-bottom:6px;
-  }
-  .sub {
-    text-align:center; color:#8b94b8;
-    font-size:0.95rem; margin-bottom:36px;
-  }
+  h1 { font-size:clamp(1.8rem, 4vw, 2.6rem); background:linear-gradient(90deg,#00e5ff,#b16cff); -webkit-background-clip:text; background-clip:text; color:transparent; text-align:center; margin-bottom:6px; }
+  .sub { text-align:center; color:#8b94b8; font-size:0.95rem; margin-bottom:36px; }
   section { margin-bottom:40px; }
-  h2 {
-    font-size:1.25rem;
-    color:#00e5ff;
-    border-bottom:2px solid #1a2340;
-    padding-bottom:8px;
-    margin-bottom:18px;
-    letter-spacing:0.5px;
-  }
-  h2 .tag {
-    font-size:0.7rem; color:#8b94b8;
-    vertical-align:middle; margin-left:8px;
-    letter-spacing:1px;
-  }
-  .grid {
-    display:grid;
-    grid-template-columns:repeat(auto-fill, minmax(240px, 1fr));
-    gap:14px;
-  }
-  a.card {
-    display:block;
-    background:#131a2e;
-    border:1px solid #232c4d;
-    border-radius:12px;
-    padding:16px 18px;
-    text-decoration:none;
-    color:#e6ebff;
-    transition:transform .12s ease, border-color .12s ease, box-shadow .12s ease;
-  }
-  a.card:hover {
-    transform:translateY(-3px);
-    border-color:#00e5ff;
-    box-shadow:0 6px 20px rgba(0,229,255,.15);
-  }
+  h2 { font-size:1.25rem; color:#00e5ff; border-bottom:2px solid #1a2340; padding-bottom:8px; margin-bottom:18px; letter-spacing:0.5px; }
+  h2 .tag { font-size:0.7rem; color:#8b94b8; vertical-align:middle; margin-left:8px; letter-spacing:1px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(240px, 1fr)); gap:14px; }
+  a.card { display:block; background:#131a2e; border:1px solid #232c4d; border-radius:12px; padding:16px 18px; text-decoration:none; color:#e6ebff; transition:transform .12s ease, border-color .12s ease, box-shadow .12s ease; }
+  a.card:hover { transform:translateY(-3px); border-color:#00e5ff; box-shadow:0 6px 20px rgba(0,229,255,.15); }
   .card .name { font-weight:700; font-size:1.05rem; margin-bottom:4px; }
   .card .desc { font-size:0.82rem; color:#9aa4c4; }
-  .card .open {
-    margin-top:10px;
-    display:inline-block;
-    background:linear-gradient(90deg,#00c2ff,#7a5cff);
-    color:#fff;
-    font-size:0.78rem; font-weight:700;
-    padding:7px 14px;
-    border-radius:8px;
-    letter-spacing:0.5px;
-  }
+  .card .open { margin-top:10px; display:inline-block; background:linear-gradient(90deg,#00c2ff,#7a5cff); color:#fff; font-size:0.78rem; font-weight:700; padding:7px 14px; border-radius:8px; letter-spacing:0.5px; }
   a.card.hot { border-color:#5c2ec9; background:#171331; }
   a.card.hot:hover { border-color:#b16cff; box-shadow:0 6px 20px rgba(177,108,255,.2); }
   a.card.hot .open { background:linear-gradient(90deg,#b16cff,#ff5cb1); }
   .stars { color:#ffd166; }
-  .footnote {
-    text-align:center; color:#5b6488;
-    font-size:0.78rem; margin-top:50px;
-  }
+  .footnote { text-align:center; color:#5b6488; font-size:0.78rem; margin-top:50px; }
   a.card.alt { border-color:#0f8f5b; background:#0d1f18; }
   a.card.alt:hover { border-color:#2fd48d; box-shadow:0 6px 20px rgba(47,212,141,.18); }
   a.card.alt .open { background:linear-gradient(90deg,#18c96b,#3ec5ff); }
-
-  /* live reachability check */
   .resline{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:18px 0 6px;padding:12px 16px;font-size:.95rem;color:#e6ebff;background:#10121b;border:1px solid #2a3040;border-radius:10px}
   .resline button{cursor:pointer;border:0;border-radius:8px;padding:8px 14px;background:#2f6fed;color:#fff;font-size:.88rem}
   .resline button.off{background:#3a3f4b}
@@ -99,11 +40,16 @@
 <body>
 <div class="wrap">
   <h1>🎮 GAME VAULT</h1>
-  <p class="sub">79 games · my own forks on cameronorr2011-beep.github.io + the AP Calculus hub archive · every domain checked live below</p>
+  <p class="sub">80 games · my own forks on cameronorr2011-beep.github.io + the AP Calculus hub archive · every domain checked live below</p>
 
   <section>
     <h2>⭐ MY FORKS <span class="tag">MY OWN COPIES — hosted on cameronorr2011-beep.github.io</span></h2>
     <div class="grid">
+      <a class="card hot" href="https://cameronorr2011-beep.github.io/undertale/" target="_blank" rel="noopener">
+        <div class="name">💛 Undertale (my fork)</div>
+        <div class="desc">my fork · undertale · the full game through a WASM GameMaker runner, saves + touch controls</div>
+        <span class="open">PLAY ▶</span>
+      </a>
       <a class="card hot" href="https://cameronorr2011-beep.github.io/hollow-knight-js/" target="_blank" rel="noopener">
         <div class="name">🔪 Hollow Knight (my fork 1)</div>
         <div class="desc">my fork · hollow-knight-js</div>

@@ -78,7 +78,7 @@
     <div class="feat-buttons">
       <a class="feat-play" href="https://krillion.io/" target="_blank" rel="noopener">▶ Daily Dive</a>
       <a href="https://krillion.io/unlimited/classic" target="_blank" rel="noopener">♾️ Unlimited</a>
-      <a href="games-vault.html#daily">🎮 all 79 in the vault</a>
+      <a href="games-vault.html#daily">🎮 all 80 in the vault</a>
     </div>
   </div>
 </section>
@@ -187,70 +187,18 @@
   </div>
   <div class="eq">e<sup>x</sup> = Σ<sub>n=0</sub><sup>∞</sup> x<sup>n</sup>/n! &nbsp;;&nbsp; arctan x = Σ (−1)<sup>n</sup> x<sup>2n+1</sup>/(2n+1)</div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!-- ===== GAME VAULT (embedded, namespace-scoped: .gv-*) ===== -->
 <div class="gv">
 <style>
 .gv section{ margin-bottom:40px; }
-.gv h2{
-    font-size:1.25rem;
-    color:#00e5ff;
-    border-bottom:2px solid #1a2340;
-    padding-bottom:8px;
-    margin-bottom:18px;
-    letter-spacing:0.5px;
-  }
-.gv h2 .gv-tag{
-    font-size:0.7rem; color:#8b94b8;
-    vertical-align:middle; margin-left:8px;
-    letter-spacing:1px;
-  }
-.gv .gv-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fill, minmax(240px, 1fr));
-    gap:14px;
-  }
-.gv a.gv-card{
-    display:block;
-    background:#131a2e;
-    border:1px solid #232c4d;
-    border-radius:12px;
-    padding:16px 18px;
-    text-decoration:none;
-    color:#e6ebff;
-    transition:transform .12s ease, border-color .12s ease, box-shadow .12s ease;
-  }
-.gv a.gv-card:hover{
-    transform:translateY(-3px);
-    border-color:#00e5ff;
-    box-shadow:0 6px 20px rgba(0,229,255,.15);
-  }
+.gv h2{ font-size:1.25rem; color:#00e5ff; border-bottom:2px solid #1a2340; padding-bottom:8px; margin-bottom:18px; letter-spacing:0.5px; }
+.gv h2 .gv-tag{ font-size:0.7rem; color:#8b94b8; vertical-align:middle; margin-left:8px; letter-spacing:1px; }
+.gv .gv-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(240px, 1fr)); gap:14px; }
+.gv a.gv-card{ display:block; background:#131a2e; border:1px solid #232c4d; border-radius:12px; padding:16px 18px; text-decoration:none; color:#e6ebff; transition:transform .12s ease, border-color .12s ease, box-shadow .12s ease; }
+.gv a.gv-card:hover{ transform:translateY(-3px); border-color:#00e5ff; box-shadow:0 6px 20px rgba(0,229,255,.15); }
 .gv .gv-card .gv-name{ font-weight:700; font-size:1.05rem; margin-bottom:4px; }
 .gv .gv-card .gv-desc{ font-size:0.82rem; color:#9aa4c4; }
-.gv .gv-card .gv-open{
-    margin-top:10px;
-    display:inline-block;
-    background:linear-gradient(90deg,#00c2ff,#7a5cff);
-    color:#fff;
-    font-size:0.78rem; font-weight:700;
-    padding:7px 14px;
-    border-radius:8px;
-    letter-spacing:0.5px;
-  }
+.gv .gv-card .gv-open{ margin-top:10px; display:inline-block; background:linear-gradient(90deg,#00c2ff,#7a5cff); color:#fff; font-size:0.78rem; font-weight:700; padding:7px 14px; border-radius:8px; letter-spacing:0.5px; }
 .gv a.gv-card.gv-hot{ border-color:#5c2ec9; background:#171331; }
 .gv a.gv-card.gv-hot:hover{ border-color:#b16cff; box-shadow:0 6px 20px rgba(177,108,255,.2); }
 .gv a.gv-card.gv-hot .gv-open{ background:linear-gradient(90deg,#b16cff,#ff5cb1); }
@@ -274,6 +222,11 @@
 <section>
     <h2>⭐ MY FORKS <span class="gv-tag">MY OWN COPIES — hosted on cameronorr2011-beep.github.io</span></h2>
     <div class="gv-grid">
+      <a class="gv-card gv-hot" href="https://cameronorr2011-beep.github.io/undertale/" target="_blank" rel="noopener">
+        <div class="gv-name">💛 Undertale (my fork)</div>
+        <div class="gv-desc">my fork · undertale · the full game through a WASM GameMaker runner, saves + touch controls</div>
+        <span class="gv-open">PLAY ▶</span>
+      </a>
       <a class="gv-card gv-hot" href="https://cameronorr2011-beep.github.io/hollow-knight-js/" target="_blank" rel="noopener">
         <div class="gv-name">🔪 Hollow Knight (my fork 1)</div>
         <div class="gv-desc">my fork · hollow-knight-js</div>
@@ -390,7 +343,7 @@
   var msg = document.getElementById('resmsg');
   var btn = document.getElementById('resbtn');
   if (btn) btn.addEventListener('click', function(){
-    if (m) m.classList.toggle('only-working'); else document.body.classList.toggle('only-working');
+    if (m) m.classList.toggle('only-working'); else document.body.classList.toggle('working');
     btn.classList.toggle('off');
   });
   var ok = 0, done = 0, total = names.length;
@@ -410,7 +363,7 @@
 </div>
 <!-- ===== /GAME VAULT ===== -->
 
-  <footer>© 2026 MATH 41B course notes · revised for the spring term · <a href="games/CREDITS.md">credits</a> · <a href="games-vault.html">🎮 game vault (79 games)</a></footer>
+  <footer>© 2026 MATH 41B course notes · revised for the spring term · <a href="games/CREDITS.md">credits</a> · <a href="games-vault.html">🎮 game vault (80 games)</a></footer>
 </main>
 </body>
 </html>
